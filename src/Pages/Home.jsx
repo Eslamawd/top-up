@@ -21,14 +21,11 @@ import {
   DicesIcon
 } from "lucide-react";
 
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '../components/ui/Dialog';
 import { Card, CardContent } from '../components/ui/Card';
 
 import { Button } from '../components/ui/button';
-import { Input } from '../components/ui/Input';
 import { useAuth } from '../context/AuthContext';
 import { loadServices } from '../lib/serviceApi';
-import { loadCategory } from '../lib/categoryApi';
 import { toast } from 'sonner';
 
 
@@ -36,7 +33,6 @@ import { toast } from 'sonner';
 function Home() {
   const { user } = useAuth()  
   const navigate = useNavigate();
-  const [categories, setCategories] = useState([]);
   const [services, setServices] = useState([]);
 
 
@@ -46,9 +42,8 @@ function Home() {
         const fetchData = async () => {
           
             try {
-                const [servicesData, categoriesRes, ] = await Promise.all([
+                const [servicesData, ] = await Promise.all([
                     loadServices(),
-                    loadCategory(),
                 ]);
 
                 if (servicesData && Array.isArray(servicesData.products.data)) {
@@ -59,13 +54,7 @@ function Home() {
                     toast.warning("No services found from the API.");
                 }
 
-                if (categoriesRes && Array.isArray(categoriesRes.categories.data)) {
-                    setCategories(categoriesRes.categories.data);
-                } else {
-                    setCategories([]);
-                    toast.warning("No categories found from the API.");
-                }
-
+              
             
             } catch (err) {
                 console.error("Error loading data:", err);
@@ -137,23 +126,23 @@ function Home() {
               </div>
               
               <motion.div 
-                className="rounded-xl overflow-hidden w-100 shadow-2xl border relative"
+                className="rounded-xl overflow-hidden shadow-2xl border relative"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.3 }}
               >
-                <div className='flex flex-row '>
+                <div className='flex flex-row w-full h-full'>
                 <img 
                   src="social.png" 
                   alt="Digital Services" 
-                  className=" object-cover"
+                  className=" w-full h-auto object-cover"
                 />
 
                 
                 <img 
                   src="mobile.png" 
                   alt="Digital Services" 
-                  className="mr-1 object-cover"
+                  className="w-full h-auto object-cover"
                 />
                
                 </div>
@@ -198,7 +187,7 @@ function Home() {
                             <img
                               src="/microsoft.png"
                               alt="Microsoft"
-                              className="w-"
+                              className="w-full h-auto object-cover"
                             />
                           </div>
                         </div>
