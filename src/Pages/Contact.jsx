@@ -83,8 +83,8 @@ const Contact = () => {
                   <p className="text-muted-foreground mb-4">
                     For general inquiries and customer support
                   </p>
-                  <a href="mailto:support@servexlb.com" className="text-primary hover:underline">
-                    support@servexlb.com
+                  <a href="mailto:support@topuplb.com" className="text-primary hover:underline">
+                    support@topuplb.com
                   </a>
                 </div>
               </Card>
@@ -248,9 +248,9 @@ const Contact = () => {
                     <div>
                       <h3 className="font-medium">Email</h3>
                       <p className="text-muted-foreground">
-                        General: info@servexlb.com<br />
-                        Support: support@servexlb.com<br />
-                        Sales: sales@servexlb.com
+                        General: info@topuplb.com<br />
+                        Support: support@topuplb.com<br />
+                        Sales: sales@topuplb.com
                       </p>
                     </div>
                   </div>

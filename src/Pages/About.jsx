@@ -14,7 +14,7 @@ const About = () => {
       >
         {/* Hero Section */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold mb-4">About ServexLB</h1>
+          <h1 className="text-4xl font-bold mb-4">About TopUPLB</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             We're on a mission to make digital services accessible, affordable, and reliable for everyone.
           </p>
@@ -46,7 +46,7 @@ const About = () => {
           >
             <div className="relative w-full max-w-md h-80 bg-gradient-to-r from-primary/20 to-primary/10 rounded-2xl overflow-hidden">
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-4xl font-bold text-primary/40">ServexLB</div>
+                <div className="text-4xl font-bold text-primary/40">TopUP LB</div>
               </div>
             </div>
           </motion.div>
