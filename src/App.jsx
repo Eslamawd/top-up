@@ -14,8 +14,7 @@ import ResetPassword from './Pages/ResetPassword'
 import AdminPanel from './Pages/AdminPanal'
 import Services from './Pages/Services'
 import ServiceDetail from './Pages/ServiceDetail'
-import About from './Pages/About'
-import Contact from './Pages/Contact'
+
 import Checkout from './Pages/Checkout'
 import Account from './Pages/Account'
 import Payment from './Pages/Payment'
@@ -49,8 +48,7 @@ function App() {
                         <Route path="/categories/" element={<Categories/>} />
                         <Route path="/streams/:id" element={<StreamsDetail />} />
 
-                        <Route path="/about" element={<About />} />
-                        <Route path="/contact" element={<Contact />} />
+                       
                         <Route element={
                           <UserRoute />
                         }>
