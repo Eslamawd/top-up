@@ -66,8 +66,7 @@ const MainLayout = ({ children, showFooter = true }) => {
                 <ul className="space-y-2">
                   <li><Link to="/support?tab=faq" className="text-muted-foreground hover:text-primary transition-colors">FAQ</Link></li>
                   <li><Link to="/support?tab=guides" className="text-muted-foreground hover:text-primary transition-colors">Help Center</Link></li>
-                  <li><Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact Support</Link></li>
-                  <li><Link to="/support?tab=community" className="text-muted-foreground hover:text-primary transition-colors">Community</Link></li>
+                 <li><Link to="/support?tab=community" className="text-muted-foreground hover:text-primary transition-colors">Community</Link></li>
                 </ul>
               </div>
             </div>
