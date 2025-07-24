@@ -30,6 +30,51 @@ import { toast } from 'sonner';
 
 
 
+const categories = [
+  {
+    title: "Microsoft",
+    description: "The store offers the Microsoft app of products.",
+    image: "/microsoft.png",
+  },
+  {
+    title: "Social Medias",
+    description: "The store offers the Life Social Medias of products.",
+    image: "/social.png",
+  },
+  {
+    title: "Gaming",
+    description: "The store offers the Gaming app of products.",
+    image: "/gaming.png",
+  },
+  {
+    title: "Life Chat",
+    description: "The store offers the Life Chat any app of products.",
+    image: "/mobile.png",
+  },
+  {
+    title: "Stream",
+    description: "The store offers the Streams any app of products.",
+    image: "/stream.png",
+  },
+  {
+    title: "Gift Cards",
+    description: "The store Gift Cards the Life Chat any app of products.",
+    image: "/gift.png",
+  },
+  {
+    title: "Finance",
+    description: "The store Finance of products.",
+    image: "/Finance.png",
+  },
+  {
+    title: "Telecom",
+    description: "The store offers the Telecom Chat any app of products.",
+    image: "/Telecom.png",
+  },
+];
+
+
+
 function Home() {
   const { user } = useAuth()  
   const navigate = useNavigate();
@@ -166,250 +211,34 @@ function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
-             
-                <Link to={`/categories`}>
-                    <Card className="bg-card h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                      <CardContent className="p-6 h-full bg-blue-950 flex flex-col justify-between">
-                        
-                        {/* الصف العلوي: صورة يمين + عنوان ووصف يسار */}
-                        <div className="flex justify-between items-start mb-4">
-                          {/* النص على اليسار */}
-                          <div className="flex-1 text-left">
-                            <h2 className="text-xl font-semibold mb-1 text-white">
-                              Microsoft
-                            </h2>
-                            <p className="text-gray-300 mt-2 text-sm">
-                              The store offers the Microsoft app of products.
-                            </p>
-                          </div>
-                          <div className="ml-4 flex-shrink-0">
-                            <img
-                              src="/microsoft.png"
-                              alt="Microsoft"
-                              className="w-full h-auto object-cover"
-                            />
-                          </div>
-                        </div>
-                          <div className="text-gray-200 font-medium flex items-center mt-auto rounded-full border border-gray-400 px-4 py-2 w-fit">
-                            Browse Services
-                            <ArrowRight className="ml-2 h-4 w-4" />
-                          </div>
-                      </CardContent>
-                    </Card>
-                </Link>
-                <Link to={`/categories`}>
-                    <Card className="bg-card h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                      <CardContent className="p-6 h-full bg-blue-950 flex flex-col justify-between">
-                        
-                        {/* الصف العلوي: صورة يمين + عنوان ووصف يسار */}
-                        <div className="flex justify-between items-start mb-4">
-                          {/* النص على اليسار */}
-                          <div className="flex-1 text-left">
-                            <h2 className="text-xl font-semibold mb-1 text-white">
-                               Social Medias
-                            </h2>
-                            <p className="text-gray-300 mt-2 text-sm">
-                              The store offers the Life Social Medias of products.
-                            </p>
-                          </div>
-                          <div className="ml-4 flex-shrink-0">
-                            <img
-                              src="/social.png"
-                              alt="mobile"
-                              className="w-"
-                            />
-                          </div>
-                        </div>
-                          <div className="text-gray-200 font-medium flex items-center mt-auto rounded-full border border-gray-400 px-4 py-2 w-fit">
-                            Browse Services
-                            <ArrowRight className="ml-2 h-4 w-4" />
-                          </div>
-                      </CardContent>
-                    </Card>
-                </Link>
-                <Link to={`/categories`}>
-                    <Card className="bg-card h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                      <CardContent className="p-6 h-full bg-blue-950 flex flex-col justify-between">
-                        
-                        {/* الصف العلوي: صورة يمين + عنوان ووصف يسار */}
-                        <div className="flex justify-between items-start mb-4">
-                          {/* النص على اليسار */}
-                          <div className="flex-1 text-left">
-                            <h2 className="text-xl font-semibold mb-1 text-white">
-                              Gaming
-                            </h2>
-                            <p className="text-gray-300 mt-2 text-sm">
-                              The store offers the Gaming app of products.
-                            </p>
-                          </div>
-                          <div className="ml-4 flex-shrink-0">
-                            <img
-                              src="/gaming.png"
-                              alt="Gaming"
-                              className="w-"
-                            />
-                          </div>
-                        </div>
-                          <div className="text-gray-200 font-medium flex items-center mt-auto rounded-full border border-gray-400 px-4 py-2 w-fit">
-                            Browse Services
-                            <ArrowRight className="ml-2 h-4 w-4" />
-                          </div>
-                      </CardContent>
-                    </Card>
-                </Link>
-                <Link to={`/categories`}>
-                    <Card className="bg-card h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                      <CardContent className="p-6 h-full bg-blue-950 flex flex-col justify-between">
-                        
-                        {/* الصف العلوي: صورة يمين + عنوان ووصف يسار */}
-                        <div className="flex justify-between items-start mb-4">
-                          {/* النص على اليسار */}
-                          <div className="flex-1 text-left">
-                            <h2 className="text-xl font-semibold mb-1 text-white">
-                              Life Chat
-                            </h2>
-                            <p className="text-gray-300 mt-2 text-sm">
-                              The store offers the Life Chat any app of products.
-                            </p>
-                          </div>
-                          <div className="ml-4 flex-shrink-0">
-                            <img
-                              src="/mobile.png"
-                              alt="mobile"
-                              className="w-"
-                            />
-                          </div>
-                        </div>
-                          <div className="text-gray-200 font-medium flex items-center mt-auto rounded-full border border-gray-400 px-4 py-2 w-fit">
-                            Browse Services
-                            <ArrowRight className="ml-2 h-4 w-4" />
-                          </div>
-                      </CardContent>
-                    </Card>
-                </Link>
-                <Link to={`/categories`}>
-                    <Card className="bg-card h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                      <CardContent className="p-6 h-full bg-blue-950 flex flex-col justify-between">
-                        
-                        {/* الصف العلوي: صورة يمين + عنوان ووصف يسار */}
-                        <div className="flex justify-between items-start mb-4">
-                          {/* النص على اليسار */}
-                          <div className="flex-1 text-left">
-                            <h2 className="text-xl font-semibold mb-1 text-white">
-                              Stream
-                            </h2>
-                            <p className="text-gray-300 mt-2 text-sm">
-                              The store offers the Streams any app of products.
-                            </p>
-                          </div>
-                          <div className="ml-4 flex-shrink-0">
-                            <img
-                              src="/stream.png"
-                              alt="mobile"
-                              className="w-"
-                            />
-                          </div>
-                        </div>
-                          <div className="text-gray-200 font-medium flex items-center mt-auto rounded-full border border-gray-400 px-4 py-2 w-fit">
-                            Browse Services
-                            <ArrowRight className="ml-2 h-4 w-4" />
-                          </div>
-                      </CardContent>
-                    </Card>
-                </Link>
-                <Link to={`/categories`}>
-                    <Card className="bg-card h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                      <CardContent className="p-6 h-full bg-blue-950 flex flex-col justify-between">
-                        
-                        {/* الصف العلوي: صورة يمين + عنوان ووصف يسار */}
-                        <div className="flex justify-between items-start mb-4">
-                          {/* النص على اليسار */}
-                          <div className="flex-1 text-left">
-                            <h2 className="text-xl font-semibold mb-1 text-white">
-                              Gift Cards
-                            </h2>
-                            <p className="text-gray-300 mt-2 text-sm">
-                              The store Gift Cards the Life Chat any app of products.
-                            </p>
-                          </div>
-                          <div className="ml-4 flex-shrink-0">
-                            <img
-                              src="/gift.png"
-                              alt="Gift"
-                              className="w-"
-                            />
-                          </div>
-                        </div>
-                          <div className="text-gray-200 font-medium flex items-center mt-auto rounded-full border border-gray-400 px-4 py-2 w-fit">
-                            Browse Services
-                            <ArrowRight className="ml-2 h-4 w-4" />
-                          </div>
-                      </CardContent>
-                    </Card>
-                </Link>
-                <Link to={`/categories`}>
-                    <Card className="bg-card h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                      <CardContent className="p-6 h-full bg-blue-950 flex flex-col justify-between">
-                        
-                        {/* الصف العلوي: صورة يمين + عنوان ووصف يسار */}
-                        <div className="flex justify-between items-start mb-4">
-                          {/* النص على اليسار */}
-                          <div className="flex-1 text-left">
-                            <h2 className="text-xl font-semibold mb-1 text-white">
-                              Finance
-                            </h2>
-                            <p className="text-gray-300 mt-2 text-sm">
-                              The store Finance of products.
-                            </p>
-                          </div>
-                          <div className="ml-4 flex-shrink-0">
-                            <img
-                              src="/Finance.png"
-                              alt="Finance"
-                              className="w-"
-                            />
-                          </div>
-                        </div>
-                          <div className="text-gray-200 font-medium flex items-center mt-auto rounded-full border border-gray-400 px-4 py-2 w-fit">
-                            Browse Services
-                            <ArrowRight className="ml-2 h-4 w-4" />
-                          </div>
-                      </CardContent>
-                    </Card>
-                </Link>
-                <Link to={`/categories`}>
-                    <Card className="bg-card h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                      <CardContent className="p-6 h-full bg-blue-950 flex flex-col justify-between">
-                        
-                        {/* الصف العلوي: صورة يمين + عنوان ووصف يسار */}
-                        <div className="flex justify-between items-start mb-4">
-                          {/* النص على اليسار */}
-                          <div className="flex-1 text-left">
-                            <h2 className="text-xl font-semibold mb-1 text-white">
-                              Telecom
-                            </h2>
-                            <p className="text-gray-300 ml-0 mt-2 text-sm">
-                              The store offers the Telecom Chat any app of products.
-                            </p>
-                          </div>
-                          <div className="ml-4 flex-shrink-0">
-                            <img
-                              src="/Telecom.png"
-                              alt="Telecom"
-                              className="w-"
-                            />
-                          </div>
-                        </div>
-                          <div className="text-gray-200 font-medium flex items-center mt-auto rounded-full border border-gray-400 px-4 py-2 w-fit">
-                            Browse Services
-                            <ArrowRight className="ml-2 h-4 w-4" />
-                          </div>
-                      </CardContent>
-                    </Card>
-                </Link>
-
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+  {categories.map((cat, index) => (
+    <Link key={index} to={`/categories`}>
+      <Card className="bg-card h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+        <CardContent className="p-6 h-full bg-blue-950 flex flex-col justify-between">
+          <div className="flex justify-between items-start mb-4">
+            <div className="flex-1 text-left">
+              <h2 className="text-xl font-semibold mb-1 text-white">{cat.title}</h2>
+              <p className="text-gray-300 mt-2 text-sm">{cat.description}</p>
             </div>
+            <div className="ml-4 flex-shrink-0">
+              <img
+                src={cat.image}
+                alt={cat.title}
+                className="w-16 h-16 object-contain"
+              />
+            </div>
+          </div>
+          <div className="text-gray-200 font-medium flex items-center mt-auto rounded-full border border-gray-400 px-4 py-2 w-fit">
+            Browse Services
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </div>
+        </CardContent>
+      </Card>
+    </Link>
+  ))}
+</div>
+
             
           </div>
            <Link to="/categories">

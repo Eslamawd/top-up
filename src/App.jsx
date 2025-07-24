@@ -4,8 +4,7 @@ import './App.css'
 import { AnimatePresence } from 'motion/react'
 import { AuthProvider } from './context/AuthContext'
 import NotFound from './Pages/NotFound'
-import { Toaster } from './components/ui/Toster'
-import { Toaster as Sonner } from "sonner";
+
 
 import Home from './Pages/Home'
 import Login from './Pages/Login'
@@ -32,8 +31,6 @@ function App() {
   return (
     <>
     <AuthProvider>
-        <Toaster />
-                  <Sonner/>
                   <BrowserRouter>
                  
                     <AnimatePresence mode="wait">
