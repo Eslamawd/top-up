@@ -83,7 +83,7 @@ const ServicesPage = () => {
                 exit={{ opacity: 0, y: 20 }}
                 className="container py-8"
             >
-                <div className="mb-8">
+                <div className="mb-8 mt-16">
                     <h1 className="text-3xl font-bold">Our Services</h1>
                     <p className="text-muted-foreground">
                         Explore our wide range of services designed to meet your needs.

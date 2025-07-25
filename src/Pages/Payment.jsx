@@ -100,7 +100,7 @@ function Payment() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="container py-8"
+            className="container py-8 mt-16"
           >
             <h1 className="text-3xl font-bold mb-8">Add Funds</h1>
             

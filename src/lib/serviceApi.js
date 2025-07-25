@@ -11,6 +11,13 @@ export async function loadServices(page) {
   // نفترض أنّ الـ response.data هو مصفوفة الخدمات
   return response.data;
 }
+export async function loadServicesByAdmin(page) {
+  const response = await api().get(`api/admin/all/product?page=${page || 1}`);
+  // نفترض أنّ الـ response.data هو مصفوفة الخدمات
+  return response.data;
+}
+
+
 export async function getServie(id) {
   const response = await api().get(`api/product/${id}`);
   // نفترض أنّ الـ response.data هو مصفوفة الخدمات

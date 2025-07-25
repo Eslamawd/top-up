@@ -141,7 +141,7 @@ const total = (basePrice * durationMap[duration]).toFixed(2);
                                 <SelectTrigger>
                                     <SelectValue placeholder="Select Duration" />
                                 </SelectTrigger>
-                                <SelectContent className="max-h-60 bg-black">
+                                <SelectContent className="max-h-60 bg-white">
                                     <SelectItem value="1_month">1 Month</SelectItem>
                                     <SelectItem value="3_months">3 Months</SelectItem>
                                     <SelectItem value="6_months">6 Months</SelectItem>

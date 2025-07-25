@@ -59,7 +59,7 @@ const MySubscriptions = () => {
           <p>You have no subscriptions yet.</p>
         ) : (
           <>
-            <Table className="w-full">
+            <Table className="w-full mt-16">
               <TableHeader>
                 <TableRow>
                   <TableHead>ID</TableHead>

@@ -72,7 +72,7 @@ function Account() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
-          className="container mx-auto px-4 py-8"
+          className="container mx-auto px-4 mt-16 py-8"
         >
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
             <div className="flex items-center gap-4 mb-4 md:mb-0">

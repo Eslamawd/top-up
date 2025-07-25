@@ -67,7 +67,7 @@ const Checkout = () => {
                                 <p className="text-muted-foreground">You haven't placed any orders yet.</p>
                             </div>
                         ) : (
-                            <div className="space-y-6">
+                            <div className="space-y-6 mt-16">
                                 {orders.map((order) => (
                                     <div key={order.id} className="border rounded-lg p-4 shadow-sm bg-card">
                                         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 pb-3 border-b border-dashed">

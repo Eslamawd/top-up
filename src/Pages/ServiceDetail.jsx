@@ -204,7 +204,7 @@ const handleBuy = async () => {
                                                 <SelectTrigger>
                                                     <SelectValue placeholder={`Select ${field.field_label}`} />
                                                 </SelectTrigger>
-                                                <SelectContent>
+                                                <SelectContent className='bg-white'>
                                                     {field.items_list.split(",").map((item, idx) => (
                                                         <SelectItem key={idx} value={item.trim()}>
                                                             {item.trim()}

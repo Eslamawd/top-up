@@ -96,7 +96,7 @@ const LoginComponent = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 20 }}
-        className="flex justify-center items-center py-12 px-4"
+        className="flex justify-center items-center mt-16 py-12 px-4"
       >
         <Card className="w-full max-w-md">
           <CardHeader className="space-y-1">
@@ -139,14 +139,14 @@ const LoginComponent = () => {
                       <Lock className="h-4 w-4 text-muted-foreground" />
                       Password
                     </Label>
-                    <Button
+                    <span
                       variant="link"
-                      className="text-xs p-0 h-auto"
+                      className="bg-blue-950 cursor-pointer text-white ml-0  px-2 items-center text-center py-2 rounded text-sm flex justify-between flex-row font-medium"
                       onClick={() => setShowResetDialog(true)}
                       type="button"
                     >
                       Forgot password?
-                    </Button>
+                    </span>
                   </div>
                   <div className="relative">
                     <Input
@@ -158,9 +158,9 @@ const LoginComponent = () => {
                       required
                       className="pr-10"
                     />
-                    <button
+                    <span
                       type="button"
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                      className="absolute cursor-pointer right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground bg-blue-950 text-white ml-0  px-2 items-center text-center py-2 rounded text-sm flex justify-between flex-row font-medium"
                       onClick={() => setShowPassword(!showPassword)}
                     >
                       {showPassword ? (
@@ -168,13 +168,13 @@ const LoginComponent = () => {
                       ) : (
                         <Eye className="h-4 w-4" />
                       )}
-                    </button>
+                    </span>
                   </div>
                 </div>
 
-                <Button className="w-full" type="submit" disabled={isSubmitting}>
+                <button  className="w-full custom-button" type="submit" disabled={isSubmitting}>
                   {isSubmitting ? "Signing in..." : "Sign In"}
-                </Button>
+                </button>
               </div>
             </form>
 

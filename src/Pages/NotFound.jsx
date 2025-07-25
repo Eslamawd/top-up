@@ -13,7 +13,7 @@ const NotFound= () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 20 }}
-        className="flex flex-col items-center justify-center text-center py-12 md:py-20"
+        className="flex flex-col items-center justify-center text-center mt-16 py-12 md:py-20"
       >
         <h1 className="text-9xl font-bold text-black dark:text-red-700">404</h1>
         <h2 className="text-3xl font-bold text-red-900 dark:text-white mt-6">

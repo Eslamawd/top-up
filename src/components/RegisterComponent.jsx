@@ -116,7 +116,7 @@ navigate('/login');
         exit={{ opacity: 0, y: 20 }}
         className="flex justify-center items-center py-12 px-4"
       >
-        <Card className="w-full max-w-md">
+        <Card className="w-full mt-16 max-w-md">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold">Create an Account</CardTitle>
             <CardDescription>
@@ -196,9 +196,9 @@ navigate('/login');
                       minLength={8}
                       className="pr-10"
                     />
-                    <button
+                    <span
                       type="button"
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                      className="absolute right-3  top-1/2  bg-blue-950 text-white ml-0  px-2 items-center text-center py-2 rounded text-sm flex justify-between flex-row font-medium -translate-y-1/2 text-muted-foreground hover:text-foreground"
                       onClick={() => setShowPassword(!showPassword)}
                     >
                       {showPassword ? (
@@ -206,7 +206,7 @@ navigate('/login');
                       ) : (
                         <Eye className="h-4 w-4" />
                       )}
-                    </button>
+                    </span>
                   </div>
                 </div>
                 <div className="space-y-2">
@@ -225,9 +225,9 @@ navigate('/login');
                       minLength={8}
                       className="pr-10"
                     />
-                    <button
+                    <span
                       type="button"
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                      className="absolute  bg-blue-950 text-white ml-0  px-2 items-center text-center py-2 rounded text-sm flex justify-between flex-row font-medium right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
                       onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                     >
                       {showConfirmPassword ? (
@@ -235,7 +235,7 @@ navigate('/login');
                       ) : (
                         <Eye className="h-4 w-4" />
                       )}
-                    </button>
+                    </span>
                   </div>
                 </div>
                 <div className="flex items-center space-x-2">
@@ -250,7 +250,7 @@ navigate('/login');
                   </label>
                 </div>
 
-                <Button className="w-full" type="submit" disabled={isSubmitting}>
+                <Button className="w-full custom-button" type="submit" disabled={isSubmitting}>
                   {isSubmitting ? "Creating account..." : "Register"}
                 </Button>
               </div>

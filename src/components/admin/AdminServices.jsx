@@ -27,7 +27,7 @@ import { toast } from "sonner";
 
 import CreateServiceForm from "./customization/CreateServiceForm";
 import UpdateServiceForm from "./customization/UpdateServiceForm";
-import { deleteService, loadServices } from "../../lib/serviceApi";
+import { deleteService,  loadServicesByAdmin } from "../../lib/serviceApi";
 
 const AdminServices = () => {
   const [services, setServices] = useState([]);
@@ -54,7 +54,7 @@ const AdminServices = () => {
             setError(null);
             try {
                 const [servicesData] = await Promise.all([
-                    loadServices(page),
+                    loadServicesByAdmin(page),
                    
                 ]);
 
