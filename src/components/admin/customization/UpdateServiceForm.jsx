@@ -224,8 +224,8 @@ const handleSubmit = async (e) => {
            <div className="flex items-center space-x-2">
                  <input
                    type="checkbox"
-                   id="subescription"
-                   name="subescription"
+                   id="subscription"
+                   name="subscription"
                    checked={formData.subscription}
                    onChange={(e) =>
                      setFormData((prev) => ({
@@ -234,7 +234,7 @@ const handleSubmit = async (e) => {
                      }))
                    }
                  />
-                 <Label htmlFor="subescription"> Can Add Subscription </Label>
+                 <Label htmlFor="subscription"> Can Add Subscription </Label>
         </div>
            <div className="flex items-center space-x-2">
                  <input
@@ -249,7 +249,7 @@ const handleSubmit = async (e) => {
                      }))
                    }
                  />
-                 <Label htmlFor="show"> Can Add Show </Label>
+                 <Label htmlFor="show"> {formData.show ? 'Show' : 'Not Show'} </Label>
         </div>
    
    
