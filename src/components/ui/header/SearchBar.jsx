@@ -29,18 +29,31 @@ const SearchBar = () => {
 
   return (
     <div className="relative mx-4 flex-1 max-w-md">
-      <form onSubmit={handleSearch}>
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
-            type="search"
-            placeholder={placeholder}
-            className="pl-10 pr-4 py-2 w-full"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </div>
-      </form>
+     <form onSubmit={handleSearch}>
+    <div className="flex items-center border border-gray-300 rounded-md overflow-hidden">
+      {/* Icon */}
+      <span className="pl-3 text-gray-500">
+       
+      </span>
+
+      {/* Input */}
+      <input
+        type="search"
+        placeholder={placeholder}
+        className="flex-1 px-2 py-2 text-sm focus:outline-none"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+      />
+
+      {/* Search button */}
+      <div
+        type="submit"
+        className="bg-blue-950 hover:bg-blue-700 rounded text-white px-4 py-2 text-sm h-full"
+      >
+        <Search className="h-4 w-4" />
+      </div>
+    </div>
+  </form>
     </div>
   );
 };

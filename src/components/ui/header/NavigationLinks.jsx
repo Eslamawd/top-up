@@ -31,16 +31,7 @@ function NavigationLinks() {
 
   return (
     <nav className="hidden md:flex items-center space-x-4">
-      <div 
-        
-      
-        className="text-green-500 hover:text-white hover:bg-green-500 font-medium flex items-center rounded-full border border-gray-400 corsur-pointer px-4 py-2 w-fit"
-        onClick={handleWhatsAppRedirect}
-        title="Contact us on WhatsApp"
-      >
-        <MessageCircle className="h-5 w-5" />
-      </div>
-      
+     
    
       {user && user?.role === 'admin' ? (
         <Link to="/admin" className=' hover:text-white hover:bg-blue-950 font-medium flex items-center mt-auto rounded-full border border-gray-400 px-4 py-2 w-fit'>
@@ -58,35 +49,21 @@ function NavigationLinks() {
 
     }
       
-      {user ? (
-        <>
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className="flex gap-2 items-center"
-            onClick={handleLogout}
-          >
-            <LogOut className="h-4 w-4" />
-            <span>Logout</span>
-          </Button>
-          
-      
-        </>
-      ) : (
-        <>
-          <Link to="/login">
-            <Button  variant="default" size="sm" className="flex  gap-2 items-center">
-              <LogIn className="h-4 w-4" />
-              <span>Login</span>
-            </Button>
+    
+          <Link to="/" className='text-blue-950 hover:text-blue-400 font-medium flex items-center mt-auto    px-4 py-2 w-fit'>
+              <span>Home</span>
+          </Link>
+          <Link to="/about" className='text-blue-950 hover:text-blue-400 font-medium flex items-center mt-auto    px-4 py-2 w-fit'>
+              <span>About us</span>
+          </Link>
+          <Link to="/services" className='text-blue-950 hover:text-blue-400 font-medium flex items-center mt-auto    px-4 py-2 w-fit'>
+              <span>Services</span>
+          </Link>
+          <Link to="/contact" className='text-blue-950 hover:text-blue-400 font-medium flex items-center mt-auto    px-4 py-2 w-fit'>
+              <span>Contact us</span>
           </Link>
           
-          <Link to="/register">
-            <Button variant="outline" size="sm">Register</Button>
-          </Link>
-        </>
-      )}
-      
+        
     </nav>
   )
 }

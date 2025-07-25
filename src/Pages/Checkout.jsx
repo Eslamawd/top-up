@@ -9,15 +9,15 @@ import { Loader2 } from "lucide-react"; // For loading spinner
 const Checkout = () => {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true); // Added loading state
-    const [error, setError] = useState(null);   // Added error state
+    const [error, setError] = useState(null);    // Added error state
 
     useEffect(() => {
-        const fetchOrdersData = async () => { // Renamed from fetchServices for clarity
+        const fetchOrdersData = async () => { // Renamed from fetchProduct for clarity
             setLoading(true);
             setError(null);
             try {
                 const res = await loadOrder();
-                // console.log(res); // Remove this line in production
+                // console.log(res); // Consider removing this line in production
 
                 if (res.orders && Array.isArray(res.orders)) {
                     setOrders(res.orders);
@@ -41,24 +41,6 @@ const Checkout = () => {
         if (!isoString) return 'N/A';
         const date = new Date(isoString);
         return date.toLocaleString(); // Formats date and time based on user's locale
-    };
-
-    // Helper to get status badge variant
-    const getStatusBadgeVariant = (status) => {
-        switch (status) {
-            case 'completed':
-                return 'bg-green-100 text-green-800';
-            case 'pending':
-                return 'bg-yellow-100 text-yellow-800';
-            case 'processing':
-                return 'bg-blue-100 text-blue-800';
-            case 'failed':
-                return 'bg-red-100 text-red-800';
-            case 'wait': // ZDDK specific status
-                return 'bg-purple-100 text-purple-800';
-            default:
-                return 'bg-gray-100 text-gray-800';
-        }
     };
 
     return (
@@ -90,16 +72,17 @@ const Checkout = () => {
                                     <div key={order.id} className="border rounded-lg p-4 shadow-sm bg-card">
                                         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 pb-3 border-b border-dashed">
                                             <div className="mb-2 sm:mb-0">
-                                                <h4 className="font-semibold text-lg">Order #{order.id}</h4>
+                                                <h4 className="font-semibold text-lg">OrderId: {order.id}</h4>
                                                 <p className="text-sm text-muted-foreground">Placed on: {formatDate(order.created_at)}</p>
                                             </div>
                                             <div className="flex flex-wrap gap-2">
-                                                <Badge className={`text-xs font-medium ${getStatusBadgeVariant(order.payment_status)}`}>
-                                                    Payment: {order.payment_status}
+                                                <Badge className={`text-xs font-medium bg-green-100 text-green-800`}>
+                                                    ProductId: {order.product_id} {/* This seems to be product_id, not payment status */}
                                                 </Badge>
-                                                {order.zddk_status && (
-                                                    <Badge className={`text-xs font-medium ${getStatusBadgeVariant(order.zddk_status)}`}>
-                                                        ZDDK Status: {order.zddk_status}
+                                                {/* Display product name only once, if product exists */}
+                                                {order.product && (
+                                                    <Badge className={`text-xs font-medium bg-blue-100 text-blue-800`}>
+                                                        Product: {order.product.name_ar}
                                                     </Badge>
                                                 )}
                                             </div>
@@ -110,36 +93,30 @@ const Checkout = () => {
                                                 <span className="font-medium">Total Price:</span>
                                                 <span className="font-bold text-primary">${parseFloat(order.total_price).toFixed(2)}</span>
                                             </div>
-                                            <div className="flex justify-between text-sm text-muted-foreground">
-                                                <span className="font-medium">Paid with:</span>
-                                                <span>{order.payment_method}</span>
-                                            </div>
-                                            {order.used_balance && parseFloat(order.used_balance) > 0 && (
-                                                <div className="flex justify-between text-sm text-muted-foreground">
-                                                    <span className="font-medium">Used Balance:</span>
-                                                    <span>${parseFloat(order.used_balance).toFixed(2)}</span>
+                                            
+                                            {order.product ? ( // Check if product exists before rendering its details
+                                                <div className="flex items-start gap-4 p-4">
+                                                    <img
+                                                        src={order.product.image} // Corrected: use order.product
+                                                        alt={order.product.name_ar} // Corrected: use order.product
+                                                        className="w-20 h-20 object-cover rounded border"
+                                                        onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/80x80/cccccc/000000?text=No+Image"; }} // Fallback image
+                                                    />
+                                                    <div>
+                                                        <h5 className="font-semibold text-base">Product Details:</h5>
+                                                        <p className="text-sm">Name: {order.product.name_ar}</p>
+                                                        <p className="text-sm">Price: ${order.product.price}</p>
+                                                        {/* Add more product details here if available */}
+                                                    </div>
                                                 </div>
+                                            ) : (
+                                                <p className="text-sm text-muted-foreground pt-3 border-t">No product details available for this order.</p>
                                             )}
                                         </div>
 
-                                        {order.services && order.services.length > 0 && (
-                                            <div className="space-y-3 pt-3 border-t">
-                                                <h5 className="font-semibold text-base">Services Included:</h5>
-                                                {order.services.map((service) => (
-                                                    <div key={service.id} className="flex justify-between items-center text-sm bg-muted/20 p-2 rounded-md">
-                                                        <span className="font-medium">
-                                                            {service.title} (x{service.pivot.quantity})
-                                                        </span>
-                                                        <span className="text-muted-foreground">
-                                                            ${(parseFloat(service.pivot.price) * service.pivot.quantity).toFixed(2)}
-                                                        </span>
-                                                    </div>
-                                                ))}
+                                        <div className="flex justify-between items-center">
+                                           Data from Order:  {order.response}
                                             </div>
-                                        )}
-                                        {!order.services || order.services.length === 0 && (
-                                            <p className="text-sm text-muted-foreground pt-3 border-t">No services listed for this order.</p>
-                                        )}
                                     </div>
                                 ))}
                             </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { useNavigate, Routes, Route } from "react-router-dom";
+import { useNavigate, Routes, Route, Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/Card";
 import { Button } from "../components/ui/button";
 import MainLayout from "../components/MainLayout";
@@ -83,66 +83,62 @@ const AdminPanel = () => {
             <Card>
               <CardContent className="p-4">
                 <nav className="space-y-2">
-                  <Button 
-                    variant="ghost" 
-                    className="w-full justify-start" 
-                    onClick={() => navigate("/admin")}
+                  <Link 
+                    to="/admin" 
+                    className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-primary"
+                   
                   >
-                    <BarChart3 className="mr-2 h-4 w-4" />
+                    <BarChart3 className="mr-2 h-6 w-6 rounded bg-blue-950 text-white" />
                     Dashboard
-                  </Button>
-                  <Button 
-                    variant="ghost" 
-                    className="w-full justify-start" 
-                    onClick={() => navigate("/admin/customers")}
+                  </Link>
+                  <Link 
+                  to="/admin/customers"
+                    className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-primary"
                   >
-                    <Users className="mr-2 h-4 w-4" />
+                    <Users className="mr-2 h-6 w-6 rounded bg-blue-950 text-white" />
                     Customers
-                  </Button>
+                  </Link>
               
-                  <Button 
-                    variant="ghost" 
-                    className="w-full justify-start" 
-                    onClick={() => navigate("/admin/categories")}
+                  <Link 
+                   to="/admin/categories"
+                    className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-primary"
                   >
-                    <TicketCheck />
+                    <TicketCheck  className="mr-2 h-6 w-6 rounded bg-blue-950 text-white" />
                     
                     Category
-                  </Button>
+                  </Link>
               
-                  <Button 
-                    variant="ghost" 
-                    className="w-full justify-start" 
-                    onClick={() => navigate("/admin/services")}
+                  <Link 
+                  to="/admin/services"
+                    className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-primary"
+
                   >
-                    <Package className="mr-2 h-4 w-4" />
+                    <Package className="mr-2 h-6 w-6 rounded bg-blue-950 text-white" />
                     Services
-                  </Button>
-                  <Button 
-                    variant="ghost" 
-                    className="w-full justify-start relative" 
-                    onClick={() => navigate("/admin/payments")}
+                  </Link>
+                  <Link
+                  to="/admin/payments"
+                    className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-primary"
                   >
-                    <LucidePartyPopper className="mr-2 h-4 w-4" />
+                    <LucidePartyPopper className="mr-2 h-6 w-6 rounded bg-blue-950 text-white" />
                     Payments
-                  </Button>
-                  <Button 
-                    variant="ghost" 
-                    className="w-full justify-start relative" 
-                    onClick={() => navigate("/admin/subscriptions")}
+                  </Link>
+                  <Link 
+                  to="/admin/subscriptions"
+                    className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-primary"
                   >
-                    <StarsIcon className="mr-2 h-4 w-4" />
+                    <StarsIcon className="mr-2 h-6 w-6 rounded bg-blue-950 text-white" />
                     subscriptions
-                  </Button>
+                  </Link>
                 
-                  <Button 
-                    variant="ghost" 
-                    className="w-full justify-start relative" 
-                    onClick={() => navigate("/admin/orders")}
+                  <Link 
+                    to="/admin/orders"
+                    className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-primary"
+        
                   >
-                    <ShoppingCart className="mr-2 h-4 w-4" />
+                    <ShoppingCart className="mr-2 h-6 w-6 rounded bg-blue-950 text-white" />
                     Orders
-                  </Button>
+                  </Link>
                 
                 </nav>
               </CardContent>

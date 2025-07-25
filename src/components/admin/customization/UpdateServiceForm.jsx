@@ -21,6 +21,7 @@ export default function UpdateServiceForm({ service, onSuccess, onCancel }) {
     price_wholesale: service?.price_wholesale || 0,
     quantity: service?.quantity || 0,
     subscription: service?.subscription || false,
+    show: service?.show || false,
     imageUrl: service?.image || "",
     categoryId: service?.category.id || "",
 
@@ -115,6 +116,7 @@ const handleSubmit = async (e) => {
         payload.append("price_wholesale", formData.price_wholesale);
         payload.append("quantity", formData.quantity);
         payload.append("subscription", formData.subscription ? "1" : "0");
+        payload.append("show", formData.show ? "1" : "0");
         payload.append("category_id", formData.categoryId);
         payload.append("_method", "PATCH"); // Laravel expects this for updates
       if (formData.imageFile) {
@@ -219,7 +221,7 @@ const handleSubmit = async (e) => {
                  placeholder="Enter description"
                />
              </div>
-                   <div className="flex items-center space-x-2">
+           <div className="flex items-center space-x-2">
                  <input
                    type="checkbox"
                    id="subescription"
@@ -233,7 +235,22 @@ const handleSubmit = async (e) => {
                    }
                  />
                  <Label htmlFor="subescription"> Can Add Subscription </Label>
-   </div>
+        </div>
+           <div className="flex items-center space-x-2">
+                 <input
+                   type="checkbox"
+                   id="show"
+                   name="show"
+                   checked={formData.show}
+                   onChange={(e) =>
+                     setFormData((prev) => ({
+                       ...prev,
+                       show: e.target.checked,
+                     }))
+                   }
+                 />
+                 <Label htmlFor="show"> Can Add Show </Label>
+        </div>
    
    
              <div className="space-y-2">

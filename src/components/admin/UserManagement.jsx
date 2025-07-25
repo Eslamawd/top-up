@@ -271,7 +271,7 @@ const UserManagement = () => {
   <SelectTrigger className="w-[110px]">
     <SelectValue />
   </SelectTrigger>
-  <SelectContent className="bg-black text-white">
+  <SelectContent className="bg-white">
     <SelectItem value="user">User</SelectItem>
     <SelectItem value="seals">seller</SelectItem>
     <SelectItem value="admin">Admin</SelectItem>
@@ -298,7 +298,7 @@ const UserManagement = () => {
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
-        <AlertDialogContent className='bg-black text-white'>
+        <AlertDialogContent className='bg-white'>
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
             <AlertDialogDescription>
@@ -317,7 +317,7 @@ const UserManagement = () => {
 
       {/* Balance Management Dialog */}
       <Dialog open={showBalanceDialog} onOpenChange={setShowBalanceDialog}>
-        <DialogContent className='bg-black text-white max-w-md'>
+        <DialogContent className='bg-white  max-w-md'>
           <DialogHeader>
             <DialogTitle>
               {balanceAction === "deposit" ? "deposit" : "withdraw"}

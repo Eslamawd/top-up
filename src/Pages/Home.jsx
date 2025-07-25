@@ -18,7 +18,8 @@ import {
   TicketPercentIcon,
   DollarSignIcon,
   BatteryFull,
-  DicesIcon
+  DicesIcon,
+  ChevronDown
 } from "lucide-react";
 
 import { Card, CardContent } from '../components/ui/Card';
@@ -27,6 +28,7 @@ import { Button } from '../components/ui/button';
 import { useAuth } from '../context/AuthContext';
 import { loadServices } from '../lib/serviceApi';
 import { toast } from 'sonner';
+import FooterTopFeatures from '../components/ui/MainFoter';
 
 
 
@@ -120,6 +122,11 @@ function Home() {
 
   return (
     <MainLayout>
+ 
+       
+       
+
+ 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -129,15 +136,16 @@ function Home() {
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-primary/10 to-primary/5 py-16 md:py-28">
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div className="space-y-8">
+            <div className="grid grid-cols-1  gap-12 justify-center items-center">
+              <div className="space-y-8 ">
                 <motion.h1 
                   className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  Buy Streaming, Gaming, and Social Media Services Instantly
+                 
+          Topup Lb sells original <br /> codes & activation keys
                 </motion.h1>
                 <motion.p 
                   className="text-xl text-muted-foreground"
@@ -149,49 +157,27 @@ function Home() {
                 </motion.p>
                 
                 <motion.div 
-                  className="flex flex-col sm:flex-row gap-4"
+                  className="flex flex-col w-full items-center justify-center sm:flex-row gap-4"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
                 >
                   <Link to="/services">
                     <Button size="lg" className="w-full sm:w-auto">
-                      <ShoppingCart className="mr-2 h-5 w-5" />
-                      View Services
+                     Shop Now
                     </Button>
                   </Link>
                
-                  <Link to="/register" className='hover:text-white hover:bg-blue-950 font-medium flex items-center mt-auto rounded-full border border-gray-400 px-4 p-2 m-1 w-fit' >
-                   <PlayCircle className="mr-2 h-5 w-5" />
-                    Get Started
+                  <Link to="/register" className='hover:text-white hover:bg-blue-950 font-medium flex justify-center items-center text-center mt-auto rounded-xl border border-gray-400 px-4 p-2 m-1 w-30 sm:w-auto' >
+                  
+                    Sign Up
                   </Link>
                 </motion.div>
                 
              
               </div>
               
-              <motion.div 
-                className="rounded-xl overflow-hidden shadow-2xl border relative"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.3 }}
-              >
-                <div className='flex flex-row w-full h-full'>
-                <img 
-                  src="social.png" 
-                  alt="Digital Services" 
-                  className=" w-full h-auto object-cover"
-                />
-
-                
-                <img 
-                  src="mobile.png" 
-                  alt="Digital Services" 
-                  className="w-full h-auto object-cover"
-                />
-               
-                </div>
-              </motion.div>
+              
             </div>
           </div>
         </section>
@@ -274,25 +260,25 @@ function Home() {
                   </div>
                   <CardContent className="p-6">
                     <div className="flex justify-between items-start mb-2">
-                      <h3 className="text-lg font-semibold">{service.name_ar}</h3>
+                      <h3 className="text-lg font-semibold">{service.name_en}</h3>
                       <span className="text-lg font-bold">${service.price}</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
-                        {service.category.name_ar}
+                        {service.category.name_en}
                       </span>
                 {user ? (
-  service.subscription ? (
-    <Button size="sm" onClick={() => navigate(`/streams/${service.id}`)}>
-      <Clock className="h-4 w-4 mr-2" />
-      Subscribe Now
-    </Button>
-  ) : (
-    <Button size="sm" onClick={() => navigate(`/services/${service.id}`)}>
-      <CreditCard className="h-4 w-4 mr-2" />
-      Order Now
-    </Button>
-  )
+                        service.subscription ? (
+                          <Button size="sm" onClick={() => navigate(`/streams/${service.id}`)}>
+                            <Clock className="h-4 w-4 mr-2" />
+                            Subscribe Now
+                          </Button>
+                        ) : (
+                          <Button size="sm" onClick={() => navigate(`/services/${service.id}`)}>
+                            <CreditCard className="h-4 w-4 mr-2" />
+                            Order Now
+                          </Button>
+                        )
                         ) : (
                           <Button size="sm" onClick={() => navigate(`/login`)}>
                             <CreditCard className="h-4 w-4 mr-2" />
@@ -320,113 +306,7 @@ function Home() {
 
         {/* Why Choose Us Section */}
         <section className="py-16">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">
-                Why Choose TopUpLb
-              </h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                We provide the best digital services with instant delivery and excellent support.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              
-            <Card className="p-6 bg-blue-950 text-white flex flex-col items-center justify-center">
-                <div className="bg-primary/10 rounded-full p-3 w-12 h-12 flex items-center justify-center mb-4">
-                  <Zap className="h-6 w-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">
-                  Instant Delivery
-                </h3>
-                <p className="text-muted-foreground">
-                  Get your services delivered instantly after purchase. No waiting needed.
-                </p>
-              </Card>
-
-              
-            <Card className="p-6 bg-blue-950 text-white flex flex-col items-center justify-center">
-                <div className="bg-primary/10 rounded-full p-3 w-12 h-12 flex items-center justify-center mb-4">
-                  <CreditCard className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">
-                  Secure Payments
-                </h3>
-                <p className="text-muted-foreground">
-                  All transactions are secure and encrypted for your peace of mind.
-                </p>
-              </Card>
-
-              
-            <Card className="p-6 bg-blue-950 text-white flex flex-col items-center justify-center">
-                <div className="bg-primary/10 rounded-full p-3 w-12 h-12 flex items-center justify-center mb-4">
-                  <Shield className="h-6 w-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">
-                  24/7 Support
-                </h3>
-                <p className="text-muted-foreground">
-                  Our dedicated support team is always ready to assist you with any issues.
-                </p>
-              </Card>
-              
-            <Card className="p-6 bg-blue-950 text-white flex flex-col items-center justify-center">
-                <div className="bg-primary/10 rounded-full p-3 w-12 h-12 flex items-center justify-center mb-4">
-                  <TicketPercentIcon className="h-6 w-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">
-                  Discounts
-                </h3>
-                <p className="text-muted-foreground">
-Automatic discounts for regular customers                </p>
-              </Card>
-              
-            <Card className="p-6 bg-blue-950 text-white flex flex-col items-center justify-center">
-                <div className="bg-primary/10 rounded-full p-3 w-12 h-12 flex items-center justify-center mb-4">
-                  <Search className="h-6 w-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">
-                  Time
-                </h3>
-                <p className="text-muted-foreground">
-                  You spend a minimum of time and effort on finding a key  
-                  </p>
-              </Card>
-              
-            <Card className="p-6 bg-blue-950 text-white flex flex-col items-center justify-center">
-                <div className="bg-primary/10 rounded-full p-3 w-12 h-12 flex items-center justify-center mb-4">
-                  <DollarSignIcon className="h-6 w-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">
-                  Significant
-                </h3>
-                <p className="text-muted-foreground">
-                  Our prices allow you to save a significant part of your funds
-                  </p>
-              </Card>
-            <Card className="p-6 bg-blue-950 text-white flex flex-col items-center justify-center">
-                <div className="bg-primary/10 rounded-full p-3 w-12 h-12 flex items-center justify-center mb-4">
-                  <BatteryFull className="h-16 w-16 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">
-                  Purchased key instantly
-                </h3>
-                <p className="text-muted-foreground">
-                  You receive the purchased key instantly, without any waiting.
-                  </p>
-              </Card>
-            <Card className="p-6 bg-blue-950 text-white flex flex-col items-center justify-center">
-            <div className="bg-primary/10 rounded-full p-3 w-12 h-12 flex items-center justify-center mb-4">
-              <DicesIcon className="h-6 w-6 text-primary" />
-            </div>
-            <h3 className="text-xl font-semibold mb-2">Store offers</h3>
-            <p className="text-gray-400">
-              The store offers the widest range of products.
-            </p>
-          </Card>
-
-            </div>
-          </div>
+         <FooterTopFeatures/>
         </section>
 
        

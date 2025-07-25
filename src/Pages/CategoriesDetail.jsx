@@ -63,21 +63,21 @@ function CategoriesDetail() {
     <MainLayout>
       <div className="mb-8">
         <h1 className="text-3xl font-bold">
-          خدمات داخل فئة: {category?.name_en || ''}
+          Category: {category?.name_en || ''}
         </h1>
         <p className="text-muted-foreground">
-          {category?.description || "استكشف مجموعة الخدمات المتاحة داخل هذه الفئة."}
+          {category?.description || "Show All Servcies in This Category"}
         </p>
       </div>
 
       {loading ? (
         <div className="flex justify-center items-center h-64">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          <span className="ml-2 text-muted-foreground">جارٍ تحميل البيانات...</span>
+          <span className="ml-2 text-muted-foreground">Loaded..</span>
         </div>
       ) : error ? (
         <div className="text-center py-12">
-          <h2 className="text-xl font-bold text-destructive mb-4">حدث خطأ أثناء التحميل</h2>
+          <h2 className="text-xl font-bold text-destructive mb-4">Error in loaded please Try Again</h2>
           <p className="text-muted-foreground mb-6">{error}</p>
         </div>
       ) : (
@@ -85,7 +85,7 @@ function CategoriesDetail() {
           {/* عرض الفئات الفرعية */}
           {children.length > 0 && (
             <div className="mb-12">
-              <h2 className="text-2xl font-bold mb-4">فئات فرعية</h2>
+              <h2 className="text-2xl font-bold mb-4">Category </h2>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {children.map(child => (
                   <Link to={`/categories/${child.id}`} key={child.id}>
@@ -99,10 +99,10 @@ function CategoriesDetail() {
                           />
                         </div>
                         <h3 className="text-xl font-semibold mb-2">
-                          {child.name_ar}
+                          {child.name_en}
                         </h3>
                         <div className="text-primary font-medium flex items-center mt-auto">
-                          تصفح الخدمات
+                          Show Services
                           <ArrowRight className="ml-2 h-4 w-4" />
                         </div>
                       </CardContent>
@@ -121,7 +121,7 @@ function CategoriesDetail() {
                 </Button>
 
                 <span className="text-sm text-muted-foreground">
-                  صفحة {childrenPage} من {childrenLastPage} — عدد: {childrenTotal} فئة
+                  Page {childrenPage} as {childrenLastPage} — Total: {childrenTotal} Category
                 </span>
 
                 <Button
@@ -153,7 +153,7 @@ function CategoriesDetail() {
                 </Button>
 
                 <span className="text-sm text-muted-foreground">
-                  صفحة {currentPage} من {lastPage} — عدد: {total} خدمة
+                  Page {currentPage} as {lastPage} — Total: {total} Services
                 </span>
 
                 <Button
@@ -166,7 +166,7 @@ function CategoriesDetail() {
             </>
           ) : (
             <p className="text-center text-muted-foreground py-8">
-              لا توجد خدمات داخل هذه الفئة.
+             Not Servcies in This Category
             </p>
           )}
         </>

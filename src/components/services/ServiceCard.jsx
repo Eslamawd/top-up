@@ -21,7 +21,7 @@ const ServiceCard = ({ service }) => {
         >
             <CardHeader className="p-4 pb-2">
                 <div className="flex justify-between items-start">
-                    <CardTitle className="text-lg font-semibold line-clamp-1">{service.name_ar}</CardTitle> {/* Changed from service.name */}
+                    <CardTitle className="text-lg font-semibold line-clamp-1">{service.name_en}</CardTitle> {/* Changed from service.name */}
                 </div>
             </CardHeader>
             

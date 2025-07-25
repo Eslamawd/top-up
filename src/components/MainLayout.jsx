@@ -1,11 +1,29 @@
 import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ShoppingCart, User, Home, Package, LifeBuoy, HelpCircle, Settings } from "lucide-react";
+import { ShoppingCart, User, Home, Package, LifeBuoy, HelpCircle, Settings, Menu } from "lucide-react";
 import { Button } from "./ui/button";
 import Header from "./Header";
 import ChatBot from "./ChatBot";
 import { cn } from "../lib/utils";
 import { useAuth } from "../context/AuthContext";
+import SearchBar from "./ui/header/SearchBar";
+
+
+const footerLinks = {
+  services: [
+    { name: "Streaming Services", href: "/services?category=streaming" },
+    { name: "Gaming Services", href: "/services?category=gaming" },
+    { name: "Social Media", href: "/services?category=social" },
+    { name: "Digital Utilities", href: "/services?category=utilities" },
+  ],
+  support: [
+    { name: "FAQ", href: "/support?tab=faq" },
+    { name: "Help Center", href: "/support?tab=guides" },
+    { name: "Community", href: "/support?tab=community" },
+  ],
+  // Social links section removed as per user's implied structure
+};
+
 
 const MainLayout = ({ children, showFooter = true }) => {
   const { user } = useAuth();
@@ -22,6 +40,8 @@ const MainLayout = ({ children, showFooter = true }) => {
       
       {/* Header */}
       <Header />
+
+      
       
       {/* Main Content with top padding for header */}
       <main className="flex-grow pt-20 pb-16 md:pb-0">
@@ -37,40 +57,44 @@ const MainLayout = ({ children, showFooter = true }) => {
       {showFooter && (
         <footer className="bg-background border-t border-border py-8 mt-12">
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">  
-                  
-              <div>
-                      <img src='/vite.png' alt="TopUPLB Logo" className="mr-2 " /> 
-                <p className="text-muted-foreground">Your one-stop shop for digital services with instant delivery and amazing support.</p>
-              </div>
-              
-              <div>
-                <h3 className="text-lg font-semibold mb-4">Services</h3>
-                <ul className="space-y-2">
-                  <li><Link to="/services?category=streaming" className="text-muted-foreground hover:text-primary transition-colors">Streaming Services</Link></li>
-                  <li><Link to="/services?category=gaming" className="text-muted-foreground hover:text-primary transition-colors">Gaming Services</Link></li>
-                  <li><Link to="/services?category=social" className="text-muted-foreground hover:text-primary transition-colors">Social Media</Link></li>
-                  <li><Link to="/services?category=utilities" className="text-muted-foreground hover:text-primary transition-colors">Digital Utilities</Link></li>
-                </ul>
-              </div>
-              
-              <div>
-                <h3 className="text-lg font-semibold mb-4">Company</h3>
-                <ul className="space-y-2">
-                  <li><Link to="/support" className="text-muted-foreground hover:text-primary transition-colors">Support</Link></li>
-                </ul>
-              </div>
-              
-              <div>
-                <h3 className="text-lg font-semibold mb-4">Support</h3>
-                <ul className="space-y-2">
-                  <li><Link to="/support?tab=faq" className="text-muted-foreground hover:text-primary transition-colors">FAQ</Link></li>
-                  <li><Link to="/support?tab=guides" className="text-muted-foreground hover:text-primary transition-colors">Help Center</Link></li>
-                 <li><Link to="/support?tab=community" className="text-muted-foreground hover:text-primary transition-colors">Community</Link></li>
-                </ul>
-              </div>
-            </div>
-            
+            <div className="max-w-6xl mx-auto px-4 md:px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+        {/* Logo and Description - now spanning 2 columns on medium screens and up */}
+        <div className="col-span-1 md:col-span-2 w-full space-y-4">
+          <img src='/vite.png' alt="TopUPLB Logo" className="mr-2 h-10" /> {/* Added h-10 for consistent height */}
+          <p className="text-gray-400">Your one-stop shop for digital services with instant delivery and amazing support.</p>
+        </div>
+
+        {/* Services Section */}
+        <div>
+          <h3 className="text-lg font-semibold mb-4 text-white">Services</h3>
+          <ul className="space-y-2">
+            {footerLinks.services.map((item, i) => (
+              <li key={i}>
+                <a href={item.href} className="text-gray-400 hover:text-white transition-colors text-sm">
+                  {item.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Support Section */}
+        <div>
+          <h3 className="text-lg font-semibold mb-4 text-white">Support</h3>
+          <ul className="space-y-2">
+            {footerLinks.support.map((item, i) => (
+              <li key={i}>
+                <a href={item.href} className="text-gray-400 hover:text-white transition-colors text-sm">
+                  {item.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* The fourth column is implicitly empty as per the new structure */}
+      </div>
+
             <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
               <p className="text-muted-foreground text-sm">© 2023 TopUplb.com. All rights reserved.</p>
               <div className="flex space-x-4 mt-4 md:mt-0">

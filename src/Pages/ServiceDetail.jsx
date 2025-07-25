@@ -254,7 +254,7 @@ const handleBuy = async () => {
 
             {/* Confirmation Dialog */}
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <DialogContent className='bg-black'>
+                <DialogContent className='bg-white'>
                     <DialogHeader>
                         <DialogTitle>Confirm Purchase</DialogTitle>
                         <DialogDescription>Confirm buying {service.name_en} for ${totalPrice}</DialogDescription>
