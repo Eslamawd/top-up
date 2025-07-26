@@ -106,21 +106,21 @@ function Header() {
 
 
 <div className=" hidden md:flex flex-row justify-center h-3.5 items-center   mt-6  p-4">
-       <div className=" rounded-4xl bg-blue-50 w-30 mr-2  transition-colors cursor-pointer hover:bg-blue-950 hover:text-gray-50">
+       <Link to='/categories' className=" rounded-4xl bg-blue-50 w-30 mr-2  transition-colors cursor-pointer hover:bg-blue-950 hover:text-gray-50">
           Streaming
-        </div>
-       <div className=" rounded-4xl bg-blue-50 w-30 mr-2  transition-colors cursor-pointer hover:bg-blue-950 hover:text-gray-50">
+        </Link>
+       <Link to='/categories' className=" rounded-4xl bg-blue-50 w-30 mr-2  transition-colors cursor-pointer hover:bg-blue-950 hover:text-gray-50">
           Gaming
-        </div>
-       <div className=" rounded-4xl bg-blue-50 w-30 mr-2  transition-colors cursor-pointer hover:bg-blue-950 hover:text-gray-50">
+        </Link>
+       <Link to='/categories' className=" rounded-4xl bg-blue-50 w-30 mr-2  transition-colors cursor-pointer hover:bg-blue-950 hover:text-gray-50">
           Social media
-        </div>
-       <div className=" rounded-4xl bg-blue-50 w-30 mr-2  transition-colors cursor-pointer hover:bg-blue-950 hover:text-gray-50">
+        </Link>
+       <Link to='/categories' className=" rounded-4xl bg-blue-50 w-30 mr-2  transition-colors cursor-pointer hover:bg-blue-950 hover:text-gray-50">
           Live chat
-        </div>
-       <div className=" rounded-4xl bg-blue-50 w-30 mr-2  transition-colors cursor-pointer hover:bg-blue-950 hover:text-gray-50">
+        </Link>
+       <Link to='/categories' className=" rounded-4xl bg-blue-50 w-30 mr-2  transition-colors cursor-pointer hover:bg-blue-950 hover:text-gray-50">
           See all
-        </div>
+        </Link>
       
         </div>
     

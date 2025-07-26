@@ -53,13 +53,13 @@ function NavigationLinks() {
           <Link to="/" className='text-blue-950 hover:text-blue-400 font-medium flex items-center mt-auto    px-4 py-2 w-fit'>
               <span>Home</span>
           </Link>
-          <Link to="/about" className='text-blue-950 hover:text-blue-400 font-medium flex items-center mt-auto    px-4 py-2 w-fit'>
+          <Link to="/#" className='text-blue-950 hover:text-blue-400 font-medium flex items-center mt-auto    px-4 py-2 w-fit'>
               <span>About us</span>
           </Link>
           <Link to="/services" className='text-blue-950 hover:text-blue-400 font-medium flex items-center mt-auto    px-4 py-2 w-fit'>
               <span>Services</span>
           </Link>
-          <Link to="/contact" className='text-blue-950 hover:text-blue-400 font-medium flex items-center mt-auto    px-4 py-2 w-fit'>
+          <Link to="/#" className='text-blue-950 hover:text-blue-400 font-medium flex items-center mt-auto    px-4 py-2 w-fit'>
               <span>Contact us</span>
           </Link>
           

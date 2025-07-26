@@ -11,10 +11,9 @@ import SearchBar from "./ui/header/SearchBar";
 
 const footerLinks = {
   services: [
-    { name: "Streaming Services", href: "/services?category=streaming" },
-    { name: "Gaming Services", href: "/services?category=gaming" },
-    { name: "Social Media", href: "/services?category=social" },
-    { name: "Digital Utilities", href: "/services?category=utilities" },
+    { name: "Streaming Services", href: "/categories" },
+    { name: "Gaming Services", href: "/categories" },
+    { name: "Digital Utilities", href: "/categories" },
   ],
   support: [
     { name: "FAQ", href: "/support?tab=faq" },
@@ -70,9 +69,9 @@ const MainLayout = ({ children, showFooter = true }) => {
           <ul className="space-y-2">
             {footerLinks.services.map((item, i) => (
               <li key={i}>
-                <a href={item.href} className="text-gray-400 hover:text-white transition-colors text-sm">
+                <Link to={item.href} clLinkssName="text-gray-400 hover:text-white transition-colors text-sm">
                   {item.name}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
