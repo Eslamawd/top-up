@@ -99,7 +99,7 @@ function CategoriesDetail() {
                           />
                         </div>
                         <h3 className="text-xl font-semibold mb-2">
-                          {child.name_en}
+                          {child.name_en || child.name_ar}
                         </h3>
                         <div className="text-primary font-medium flex items-center mt-auto">
                           Show Services

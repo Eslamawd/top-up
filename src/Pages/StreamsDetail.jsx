@@ -126,7 +126,7 @@ const total = (basePrice * durationMap[duration]).toFixed(2);
                             alt={stream.service_name_ar}
                             className="rounded-lg w-100 h-100"
                         />
-                        <h1 className="text-3xl font-bold">{stream.name_ar}</h1>
+                        <h1 className="text-3xl font-bold">{stream.name_en || stream.name_ar}</h1>
                         <h2 className="text-2xl font-bold">${priceBasedOnRole}</h2>
                         <p className="text-muted-foreground">{stream.description}</p>
                     </div>
@@ -169,11 +169,11 @@ const total = (basePrice * durationMap[duration]).toFixed(2);
 
             {/* Confirmation Dialog */}
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <DialogContent className="bg-black text-white">
+                <DialogContent className="bg-white">
                     <DialogHeader>
                         <DialogTitle>Confirm Subscription</DialogTitle>
                         <DialogDescription>
-                            Subscribe to <strong>{stream.name_ar}</strong> for <strong>{duration.replace("_", " ")}</strong> at <strong>${total}</strong>
+                            Subscribe to <strong>{stream.name_en || stream.name_ar}</strong> for <strong>{duration.replace("_", " ")}</strong> at <strong>${total}</strong>
                         </DialogDescription>
                     </DialogHeader>
 

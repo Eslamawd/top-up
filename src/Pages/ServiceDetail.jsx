@@ -161,8 +161,8 @@ const handleBuy = async () => {
                         <h1 className="text-3xl font-bold">{service.name_en}</h1>
                         <h1 className="text-3xl font-bold">${service.price}</h1>
 
-                        {service.category?.name_ar && (
-                            <Badge>{service.category.name_ar}</Badge>
+                        {service.category?.name_en && (
+                            <Badge>{service.category.name_en || service.category.name_ar}</Badge>
                         )}
                        
                     </div>

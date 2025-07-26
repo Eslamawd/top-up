@@ -94,7 +94,7 @@ function Categories() {
                         />
                       </div>
                       <h3 className="text-xl font-semibold mb-2">
-                        {category.name_ar}
+                        {category.name_en || category.name_ar}
                       </h3>
                      
                       <div className="text-primary font-medium flex items-center mt-auto">
