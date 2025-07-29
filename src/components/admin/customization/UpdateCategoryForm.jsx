@@ -103,29 +103,34 @@ function UpdateCategoryForm({ category, onSuccess, onCancel }) {
             onChange={handleInputChange}
           />
         </div>
-       <div className="space-y-2">
-                <Label htmlFor="parent_id">تصنيف أبوي (اختياري)</Label>
-                <select
-                  name="parent_id"
-                  id="parent_id"
-                  value={formData.parent_id}
-                  onChange={handleInputChange}
-                  className="w-full rounded border px-3 py-2 bg-white text-black"
-                >
-                  <option value={formData.parent_id}>Edit</option>
-                  {parentCategories.map((cat) => (
-                    <option key={cat.id} value={cat.id}>
-                      {cat.name_ar}
-                    </option>
-                  ))}
-                </select>
-              </div>
+        <div className="space-y-2">
+          <Label htmlFor="parent_id">تصنيف أبوي (اختياري)</Label>
+          <select
+            name="parent_id"
+            id="parent_id"
+            value={formData.parent_id}
+            onChange={handleInputChange}
+            className="w-full rounded border px-3 py-2 bg-white text-black"
+          >
+            <option value={formData.parent_id}>Edit</option>
+            {parentCategories.map((cat) => (
+              <option key={cat.id} value={cat.id}>
+                {cat.name_ar}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <Separator />
 
       <div className="flex justify-end space-x-2">
-        <Button type="button" variant="outline" onClick={onCancel} disabled={isLoading}>
+        <Button
+          type="button"
+          variant="outline"
+          onClick={onCancel}
+          disabled={isLoading}
+        >
           Cancel
         </Button>
         <Button type="submit" disabled={isLoading}>

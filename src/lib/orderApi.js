@@ -2,9 +2,8 @@
 
 import api from "../api/axiosClient";
 
-
-export async function loadOrder() {
-  const response = await api().get("api/orders");
+export async function loadOrder(page) {
+  const response = await api().get(`api/orders?page=${page}`);
   // نفترض أنّ الـ response.data هو مصفوفة الخدمات
   return response.data;
 }
@@ -17,10 +16,7 @@ export async function addOrder(serviceData) {
   return response.data;
 }
 
-
-export async function updateOrder(id, formData ) {
-  
-  
+export async function updateOrder(id, formData) {
   const response = await api().put(`api/admin/orders/${id}`, formData);
   return response.data;
 }
@@ -33,8 +29,3 @@ export async function deleteOrder(id) {
   const response = await api().delete(`api/admin/orders/${id}`);
   return response.data;
 }
-
-
-
-
-

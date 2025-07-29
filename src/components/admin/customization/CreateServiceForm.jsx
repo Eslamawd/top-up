@@ -24,43 +24,40 @@ export default function CreateProductForm({ onSuccess, onCancel }) {
   });
 
   const [categories, setCategories] = useState([]);
-  
-const [selectedParent, setSelectedParent] = useState(null);
-const [selectedCategoryId, setSelectedCategoryId] = useState("");
 
-useEffect(() => {
-  const loadCategories = async () => {
-    try {
-      const data = await getAllCat();
-      setCategories(data.categories || []);
-    } catch (err) {
-      console.error("Failed to load categories", err);
-      toast.error("Failed to load categories");
-    }
+  const [selectedParent, setSelectedParent] = useState(null);
+  const [selectedCategoryId, setSelectedCategoryId] = useState("");
+
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const data = await getAllCat();
+        setCategories(data.categories || []);
+      } catch (err) {
+        console.error("Failed to load categories", err);
+        toast.error("Failed to load categories");
+      }
+    };
+    loadCategories();
+  }, []);
+
+  useEffect(() => {
+    setFormData((prev) => ({
+      ...prev,
+      categoryId: selectedCategoryId,
+    }));
+  }, [selectedCategoryId]);
+
+  const handleParentChange = (e) => {
+    const parentId = e.target.value;
+    setSelectedParent(parentId);
+    setSelectedCategoryId(""); // reset subcategory selection
   };
-  loadCategories();
-}, []);
 
-useEffect(() => {
-  setFormData((prev) => ({
-    ...prev,
-    categoryId: selectedCategoryId,
-  }));
-}, [selectedCategoryId]);
-
-
-const handleParentChange = (e) => {
-  const parentId = e.target.value;
-  setSelectedParent(parentId);
-  setSelectedCategoryId(""); // reset subcategory selection
-};
-
-const getChildrenOf = (parentId) => {
-  const parent = categories.find((cat) => cat.id == parentId);
-  return parent?.children || [];
-};
-
-
+  const getChildrenOf = (parentId) => {
+    const parent = categories.find((cat) => cat.id == parentId);
+    return parent?.children || [];
+  };
 
   const [activeTab, setActiveTab] = useState("basic");
   const [isLoading, setIsLoading] = useState(false);
@@ -108,7 +105,7 @@ const getChildrenOf = (parentId) => {
       payload.append("description", formData.description);
       payload.append("price", formData.price.toString());
       payload.append("price_wholesale", formData.price_wholesale.toString());
-      payload.append("subscription", formData.subscription? 'true': 'false');
+      payload.append("subscription", formData.subscription ? "true" : "false");
       payload.append("quantity", formData.quantity.toString());
       payload.append("category_id", formData.categoryId);
 
@@ -151,49 +148,48 @@ const getChildrenOf = (parentId) => {
                 placeholder="Enter product name"
                 required
               />
-               </div>
+            </div>
 
-                              {/* Parent Dropdown */}
-                    <div className="space-y-2">
-                      <Label>Parent Category</Label>
-                      <select
-                        name="parent"
-                        className="w-full border rounded p-2 "
-                        value={selectedParent || ""}
-                        onChange={handleParentChange}
-                      >
-                        <option value="">اختر تصنيف رئيسي</option>
-                        {categories.map((cat) => (
-                          <option key={cat.id} value={cat.id}>
-                            {cat.name_ar}
-                          </option>
-                        ))}
-                      </select>
-                      </div>
+            {/* Parent Dropdown */}
+            <div className="space-y-2">
+              <Label>Parent Category</Label>
+              <select
+                name="parent"
+                className="w-full border rounded p-2 "
+                value={selectedParent || ""}
+                onChange={handleParentChange}
+              >
+                <option value="">اختر تصنيف رئيسي</option>
+                {categories.map((cat) => (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.name_ar}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-                    {/* Children Dropdown */}
-                    {selectedParent && getChildrenOf(selectedParent).length > 0 && (
-                      <div className="space-y- 2">
-                        <Label>Subcategory</Label>
-                        <select
-                          name="category_id"
-                          className="w-full border rounded p-2 "
-                          value={selectedCategoryId}
-                          onChange={(e) => setSelectedCategoryId(e.target.value)}
-                        >
-                          <option value="">اختر تصنيف فرعي</option>
-                          {getChildrenOf(selectedParent).map((child) => (
-                            <option key={child.id} value={child.id}>
-                              {child.name_ar}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    )}
+            {/* Children Dropdown */}
+            {selectedParent && getChildrenOf(selectedParent).length > 0 && (
+              <div className="space-y- 2">
+                <Label>Subcategory</Label>
+                <select
+                  name="category_id"
+                  className="w-full border rounded p-2 "
+                  value={selectedCategoryId}
+                  onChange={(e) => setSelectedCategoryId(e.target.value)}
+                >
+                  <option value="">اختر تصنيف فرعي</option>
+                  {getChildrenOf(selectedParent).map((child) => (
+                    <option key={child.id} value={child.id}>
+                      {child.name_ar}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+          </div>
 
-                  </div>
-
-                  <div className="space-y-2">
+          <div className="space-y-2">
             <Label htmlFor="description">Description</Label>
             <Textarea
               id="description"
@@ -203,22 +199,21 @@ const getChildrenOf = (parentId) => {
               placeholder="Enter description"
             />
           </div>
-                <div className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                id="subescription"
-                name="subescription"
-                checked={formData.subscription}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    subscription: e.target.checked,
-                  }))
-                }
-              />
-              <Label htmlFor="subescription"> Can Add Subscription </Label>
-</div>
-
+          <div className="flex items-center space-x-2">
+            <input
+              type="checkbox"
+              id="subescription"
+              name="subescription"
+              checked={formData.subscription}
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  subscription: e.target.checked,
+                }))
+              }
+            />
+            <Label htmlFor="subescription"> Can Add Subscription </Label>
+          </div>
 
           <div className="space-y-2">
             <Label htmlFor="image">
@@ -285,7 +280,12 @@ const getChildrenOf = (parentId) => {
       <Separator />
 
       <div className="flex justify-end space-x-2">
-        <Button type="button" variant="outline" onClick={onCancel} disabled={isLoading}>
+        <Button
+          type="button"
+          variant="outline"
+          onClick={onCancel}
+          disabled={isLoading}
+        >
           Cancel
         </Button>
         <Button type="submit" disabled={isLoading}>

@@ -1,38 +1,43 @@
-
 import React, { useState, useEffect } from "react";
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "../ui/table";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 import { Input } from "../ui/Input";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/Card";
 import { toast } from "sonner";
-import { 
-  Search, 
-  Trash2, 
-  Ban, 
+import {
+  Search,
+  Trash2,
+  Ban,
   User as UserIcon,
   Mail,
   AlertTriangle,
   Wallet,
   Plus,
-  Minus
+  Minus,
 } from "lucide-react";
-import { 
-  AlertDialog, 
-  AlertDialogAction, 
-  AlertDialogCancel, 
-  AlertDialogContent, 
-  AlertDialogDescription, 
-  AlertDialogFooter, 
-  AlertDialogHeader, 
-  AlertDialogTitle 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
 } from "../ui/alert-dialog";
 import {
   Dialog,
@@ -40,15 +45,14 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle
+  DialogTitle,
 } from "../ui/Dialog";
 import { Label } from "../ui/Label";
 import { changeRole, deleteUser, loadAllUsers } from "../../lib/adminApi";
 import { depositBalance } from "../../lib/walletApi";
 
-
 const UserManagement = () => {
- const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
 
@@ -65,7 +69,7 @@ const UserManagement = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await loadAllUsers()
+        const response = await loadAllUsers();
         setUsers(response?.users || []);
         setFilteredUsers(response?.users || []);
         if (response.users.length === 0) {
@@ -113,22 +117,22 @@ const UserManagement = () => {
 
   // Toggle user active status
   const toggleUserRole = async (userId, newRole) => {
-  try {
-    const response = await changeRole(userId, { role: newRole });
+    try {
+      const response = await changeRole(userId, { role: newRole });
 
-    const updatedUser = response.user;
-    const updatedUsers = users.map((u) => (u.id === userId ? updatedUser : u));
-    setUsers(updatedUsers);
-    setFilteredUsers(updatedUsers);
-    
+      const updatedUser = response.user;
+      const updatedUsers = users.map((u) =>
+        u.id === userId ? updatedUser : u
+      );
+      setUsers(updatedUsers);
+      setFilteredUsers(updatedUsers);
 
-    toast.success(`Role updated to ${newRole}`);
-  } catch (error) {
-    console.error("Failed to update role", error);
-    toast.error("Failed to update role");
-  }
-};
-
+      toast.success(`Role updated to ${newRole}`);
+    } catch (error) {
+      console.error("Failed to update role", error);
+      toast.error("Failed to update role");
+    }
+  };
 
   // Update balance
   const handleBalanceUpdate = async () => {
@@ -145,10 +149,16 @@ const UserManagement = () => {
     }
 
     try {
-      const response = await depositBalance(selectedUser.id,  {amount: balanceAmount} ,balanceAction)
-      
+      const response = await depositBalance(
+        selectedUser.id,
+        { amount: balanceAmount },
+        balanceAction
+      );
+
       const updatedUser = response.user;
-      const updatedUsers = users.map((u) => (u.id === selectedUser.id ? updatedUser : u));
+      const updatedUsers = users.map((u) =>
+        u.id === selectedUser.id ? updatedUser : u
+      );
       setUsers(updatedUsers);
       setFilteredUsers(updatedUsers);
       toast.success(`Balance updated for ${selectedUser.email}`);
@@ -175,7 +185,6 @@ const UserManagement = () => {
     setShowDeleteDialog(true);
   };
 
-
   return (
     <div className="space-y-6">
       <Card>
@@ -186,7 +195,7 @@ const UserManagement = () => {
             <Input
               placeholder="Search users by email or name"
               value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="w-64"
             />
           </div>
@@ -197,7 +206,9 @@ const UserManagement = () => {
               <AlertTriangle className="h-12 w-12 mb-4" />
               <p className="text-lg font-medium">No users found</p>
               <p className="text-sm">
-                {searchQuery ? 'Try adjusting your search query' : 'No users have registered yet'}
+                {searchQuery
+                  ? "Try adjusting your search query"
+                  : "No users have registered yet"}
               </p>
             </div>
           ) : (
@@ -224,26 +235,25 @@ const UserManagement = () => {
                         <Mail className="h-4 w-4 text-muted-foreground" />
                         {user.email}
                       </TableCell>
-                      <TableCell>
-                        {user?.phone}
-                      </TableCell>
+                      <TableCell>{user?.phone}</TableCell>
                       <TableCell className="flex items-center gap-1">
                         <Wallet className="h-4 w-4 text-muted-foreground" />
-                        <span className="font-medium">${user?.balance || 0.00}</span>
+                        <span className="font-medium">
+                          ${user?.balance || 0.0}
+                        </span>
                       </TableCell>
                       <TableCell>
-                       <span
-  className={`px-2 py-1 rounded-full text-xs font-medium ${
-    user.role === 'admin'
-      ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400'
-      : user.role === 'seals'
-      ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400'
-      : 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400'
-  }`}
->
-  {user.role}
-</span>
-
+                        <span
+                          className={`px-2 py-1 rounded-full text-xs font-medium ${
+                            user.role === "admin"
+                              ? "bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400"
+                              : user.role === "seals"
+                              ? "bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400"
+                              : "bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400"
+                          }`}
+                        >
+                          {user.role}
+                        </span>
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">
@@ -264,19 +274,21 @@ const UserManagement = () => {
                             <Minus className="h-4 w-4 mr-1" />
                             Withdraw
                           </Button>
-                         <Select
-  defaultValue={user.role}
-  onValueChange={(val) => toggleUserRole(user.id, val)}
->
-  <SelectTrigger className="w-[110px]">
-    <SelectValue />
-  </SelectTrigger>
-  <SelectContent className="bg-white">
-    <SelectItem value="user">User</SelectItem>
-    <SelectItem value="seals">seller</SelectItem>
-    <SelectItem value="admin">Admin</SelectItem>
-  </SelectContent>
-</Select>
+                          <Select
+                            defaultValue={user.role}
+                            onValueChange={(val) =>
+                              toggleUserRole(user.id, val)
+                            }
+                          >
+                            <SelectTrigger className="w-[110px]">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent className="bg-white">
+                              <SelectItem value="user">User</SelectItem>
+                              <SelectItem value="seals">seller</SelectItem>
+                              <SelectItem value="admin">Admin</SelectItem>
+                            </SelectContent>
+                          </Select>
 
                           <Button
                             variant="destructive"
@@ -298,17 +310,22 @@ const UserManagement = () => {
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
-        <AlertDialogContent className='bg-white'>
+        <AlertDialogContent className="bg-white">
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete the user account
-              {userToDelete && ` for ${userToDelete.email}`} and all associated data.
+              This action cannot be undone. This will permanently delete the
+              user account
+              {userToDelete && ` for ${userToDelete.email}`} and all associated
+              data.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction  onClick={confirmDelete} className="bg-red-300 text-destructive-foreground">
+            <AlertDialogAction
+              onClick={confirmDelete}
+              className="bg-red-300 text-destructive-foreground"
+            >
               Delete
             </AlertDialogAction>
           </AlertDialogFooter>
@@ -317,50 +334,58 @@ const UserManagement = () => {
 
       {/* Balance Management Dialog */}
       <Dialog open={showBalanceDialog} onOpenChange={setShowBalanceDialog}>
-        <DialogContent className='bg-white  max-w-md'>
+        <DialogContent className="bg-white  max-w-md">
           <DialogHeader>
             <DialogTitle>
               {balanceAction === "deposit" ? "deposit" : "withdraw"}
             </DialogTitle>
             <DialogDescription>
-              {balanceAction === "deposit" 
-                ? "Add funds to the user's account balance" 
+              {balanceAction === "deposit"
+                ? "Add funds to the user's account balance"
                 : "Remove funds from the user's account balance"}
             </DialogDescription>
           </DialogHeader>
-          
+
           {selectedUser && (
             <div className="space-y-4 py-4">
               <div className="flex items-center justify-between">
                 <div className="font-medium">{selectedUser.name}</div>
-                <div className="text-sm text-muted-foreground">{selectedUser.email}</div>
+                <div className="text-sm text-muted-foreground">
+                  {selectedUser.email}
+                </div>
               </div>
               <div className="flex items-center justify-between">
                 <div className="text-sm">Current Balance:</div>
-                <div className="font-medium">${selectedUser.balance || 0.00}</div>
+                <div className="font-medium">
+                  ${selectedUser.balance || 0.0}
+                </div>
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="amount">Amount ($)</Label>
-                <Input 
-                  id="amount" 
+                <Input
+                  id="amount"
                   type="number"
                   min="0.01"
                   step="0.01"
-                  value={balanceAmount || ''}
-                  onChange={(e) => setBalanceAmount(parseFloat(e.target.value) || 0)}
+                  value={balanceAmount || ""}
+                  onChange={(e) =>
+                    setBalanceAmount(parseFloat(e.target.value) || 0)
+                  }
                   placeholder="Enter amount"
                 />
-                
-                {balanceAction === "remove" && balanceAmount > selectedUser.balance && (
-                  <p className="text-sm text-red-500">
-                    Cannot remove more than the current balance (${ selectedUser.balance || 0.00})
-                  </p>
-                )}
+
+                {balanceAction === "remove" &&
+                  balanceAmount > selectedUser.balance && (
+                    <p className="text-sm text-red-500">
+                      Cannot remove more than the current balance ($
+                      {selectedUser.balance || 0.0})
+                    </p>
+                  )}
               </div>
             </div>
           )}
-          
+
           <DialogFooter>
             <Button
               variant="outline"
@@ -370,7 +395,13 @@ const UserManagement = () => {
             </Button>
             <Button
               onClick={handleBalanceUpdate}
-              disabled={!balanceAmount || balanceAmount <= 0 || (balanceAction === "withdraw" && selectedUser && balanceAmount > selectedUser.balance)}
+              disabled={
+                !balanceAmount ||
+                balanceAmount <= 0 ||
+                (balanceAction === "withdraw" &&
+                  selectedUser &&
+                  balanceAmount > selectedUser.balance)
+              }
             >
               {balanceAction === "deposit" ? "Add Funds" : "Remove Funds"}
             </Button>

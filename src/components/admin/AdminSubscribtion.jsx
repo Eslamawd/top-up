@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   Table,
@@ -7,30 +7,47 @@ import {
   TableHead,
   TableBody,
   TableCell,
-} from '../ui/table';
+} from "../ui/table";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  DialogFooter
+  DialogFooter,
 } from "../ui/Dialog";
 
 import { Card, CardHeader, CardTitle, CardContent } from "../ui/Card";
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { Button } from '../ui/button';
-import { Loader2, ChevronDown, ChevronUp, SubtitlesIcon, DollarSign } from 'lucide-react';
-import { Badge } from '../ui/badge';
-import { changeStatus, getAllSubCount, getRevnueSub, getsubscribeByAdmin } from '../../lib/subscriptionApi';
-import { toast } from 'sonner';
-import { Label } from '../ui/Label';
-import { Separator } from '../ui/Separator';
-import { deleteAccSub, newAccSub, updateAccSub } from '../../lib/accountSub';
-import { Input } from '../ui/Input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { Button } from "../ui/button";
+import {
+  Loader2,
+  ChevronDown,
+  ChevronUp,
+  SubtitlesIcon,
+  DollarSign,
+} from "lucide-react";
+import { Badge } from "../ui/badge";
+import {
+  changeStatus,
+  getAllSubCount,
+  getRevnueSub,
+  getsubscribeByAdmin,
+} from "../../lib/subscriptionApi";
+import { toast } from "sonner";
+import { Label } from "../ui/Label";
+import { Separator } from "../ui/Separator";
+import { deleteAccSub, newAccSub, updateAccSub } from "../../lib/accountSub";
+import { Input } from "../ui/Input";
 // Removed useNavigate as it's no longer needed for data refresh
-// import { useNavigate } from 'react-router-dom'; 
+// import { useNavigate } from 'react-router-dom';
 
 const AdminSubscriptions = () => {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -47,18 +64,17 @@ const AdminSubscriptions = () => {
   // const navigate = useNavigate(); // Removed
 
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    subscription_id: ''
+    email: "",
+    password: "",
+    subscription_id: "",
   });
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
-  
+
   // New state for delete confirmation dialog
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [accountToDeleteId, setAccountToDeleteId] = useState(null);
-
 
   // Function to fetch subscriptions data
   const fetchSubscriptions = async () => {
@@ -105,7 +121,6 @@ const AdminSubscriptions = () => {
           setRevenue(0);
           toast.error("No revenue data found");
         }
-
       } catch (error) {
         console.error("Error fetching initial data:", error);
         toast.error("Something went wrong while fetching dashboard data."); // Added toast error
@@ -152,7 +167,7 @@ const AdminSubscriptions = () => {
       }
 
       setIsDialogOpen(false);
-      setFormData({ email: '', password: '', subscription_id: '' }); // Reset form data
+      setFormData({ email: "", password: "", subscription_id: "" }); // Reset form data
       fetchSubscriptions(); // Refresh data after CUD operation
     } catch (err) {
       console.error("Error:", err);
@@ -167,7 +182,9 @@ const AdminSubscriptions = () => {
       const response = await changeStatus(id, { status: newRole });
 
       const updatstaut = response.subscription;
-      const updatstauts = subscriptions.map((u) => (u.id === updatstaut.id ? updatstaut : u));
+      const updatstauts = subscriptions.map((u) =>
+        u.id === updatstaut.id ? updatstaut : u
+      );
       setSubscriptions(updatstauts);
 
       toast.success(`Status updated to ${newRole}`);
@@ -202,8 +219,10 @@ const AdminSubscriptions = () => {
     }
   };
 
-  const userPercentChange = totalSub > 0 ? `+${((totalSub / 100) * 5).toFixed(2)}%` : "0%";
-  const revenuePercentChange = revenue > 0 ? `+${((revenue / 100) * 5).toFixed(2)}%` : "0%";
+  const userPercentChange =
+    totalSub > 0 ? `+${((totalSub / 100) * 5).toFixed(2)}%` : "0%";
+  const revenuePercentChange =
+    revenue > 0 ? `+${((revenue / 100) * 5).toFixed(2)}%` : "0%";
 
   if (loading) {
     return (
@@ -241,7 +260,9 @@ const AdminSubscriptions = () => {
                 {totalSub.toLocaleString()}
               </motion.div>
             )}
-            <p className="text-xs text-gray-500">{userPercentChange} from last month</p>
+            <p className="text-xs text-gray-500">
+              {userPercentChange} from last month
+            </p>
           </CardContent>
         </Card>
 
@@ -266,7 +287,9 @@ const AdminSubscriptions = () => {
                 ${revenue.toLocaleString()}
               </motion.div>
             )}
-            <p className="text-xs text-gray-500">{revenuePercentChange} from last month</p>
+            <p className="text-xs text-gray-500">
+              {revenuePercentChange} from last month
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -283,6 +306,8 @@ const AdminSubscriptions = () => {
                 <TableHead>From</TableHead>
                 <TableHead>To</TableHead>
                 <TableHead>Status</TableHead>
+                <TableHead>Location</TableHead>
+                <TableHead>Action</TableHead>
                 <TableHead>Action</TableHead>
               </TableRow>
             </TableHeader>
@@ -292,7 +317,7 @@ const AdminSubscriptions = () => {
                   <TableRow>
                     <TableCell>{sub.id}</TableCell>
                     <TableCell>
-                      <Badge>{sub.duration.replace('_', ' ')}</Badge>
+                      <Badge>{sub.duration.replace("_", " ")}</Badge>
                     </TableCell>
                     <TableCell>
                       {new Date(sub.starts_at).toLocaleDateString()}
@@ -303,14 +328,24 @@ const AdminSubscriptions = () => {
                     <TableCell>
                       <span
                         className={
-                          sub.status === 'active'
-                            ? 'text-green-600'
-                            : sub.status === 'pending'
-                              ? 'text-yellow-600'
-                              : 'text-red-600'
+                          sub.status === "active"
+                            ? "text-green-600"
+                            : sub.status === "pending"
+                            ? "text-yellow-600"
+                            : "text-red-600"
                         }
                       >
                         {sub.status}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="cursor-pointer text-blue-600">
+                        {sub.iptv}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="cursor-pointer text-blue-600">
+                        {sub.location}
                       </span>
                     </TableCell>
                     <TableCell>
@@ -337,7 +372,9 @@ const AdminSubscriptions = () => {
                     <TableRow className="bg-muted">
                       <TableCell>
                         <div>
-                          <p className="font-bold text-lg">{sub.product.name_ar}</p>
+                          <p className="font-bold text-lg">
+                            {sub.product.name_ar}
+                          </p>
                           <p>
                             <strong>Price:</strong> ${sub.product.price}
                           </p>
@@ -363,8 +400,12 @@ const AdminSubscriptions = () => {
                       <TableCell>
                         {sub.accounts ? (
                           <div className="space-y-2">
-                            <p><strong>Email:</strong> {sub.accounts.email}</p>
-                            <p><strong>Password:</strong> {sub.accounts.password}</p>
+                            <p>
+                              <strong>Email:</strong> {sub.accounts.email}
+                            </p>
+                            <p>
+                              <strong>Password:</strong> {sub.accounts.password}
+                            </p>
                             <div className="flex gap-2 mt-2">
                               <Button
                                 variant="outline"
@@ -384,7 +425,9 @@ const AdminSubscriptions = () => {
                               <Button
                                 variant="destructive"
                                 size="sm"
-                                onClick={() => confirmDeleteAccount(sub.accounts.id)} // Use custom confirmation
+                                onClick={() =>
+                                  confirmDeleteAccount(sub.accounts.id)
+                                } // Use custom confirmation
                               >
                                 Delete
                               </Button>
@@ -393,7 +436,11 @@ const AdminSubscriptions = () => {
                         ) : (
                           <Button
                             onClick={() => {
-                              setFormData({ email: '', password: '', subscription_id: sub.id });
+                              setFormData({
+                                email: "",
+                                password: "",
+                                subscription_id: sub.id,
+                              });
                               setIsDialogOpen(true);
                             }}
                           >
@@ -435,10 +482,15 @@ const AdminSubscriptions = () => {
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="bg-black text-white">
           <DialogHeader>
-            <DialogTitle>{formData.account_id ? "Update Account" : "Create Account"}</DialogTitle>
+            <DialogTitle>
+              {formData.account_id ? "Update Account" : "Create Account"}
+            </DialogTitle>
           </DialogHeader>
 
-          <form onSubmit={handleSubmit} className="space-y-6 p-6 bg-black rounded-lg shadow text-white">
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-6 p-6 bg-black rounded-lg shadow text-white"
+          >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
@@ -469,11 +521,20 @@ const AdminSubscriptions = () => {
             <Separator />
 
             <div className="flex justify-end space-x-2">
-              <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)} disabled={isProcessing}>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setIsDialogOpen(false)}
+                disabled={isProcessing}
+              >
                 Cancel
               </Button>
               <Button type="submit" disabled={isProcessing}>
-                {isProcessing ? "Saving..." : (formData.account_id ? "Update Account" : "Create Account")}
+                {isProcessing
+                  ? "Saving..."
+                  : formData.account_id
+                  ? "Update Account"
+                  : "Create Account"}
               </Button>
             </div>
           </form>
@@ -486,14 +547,23 @@ const AdminSubscriptions = () => {
           <DialogHeader>
             <DialogTitle>Confirm Deletion</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete this account? This action cannot be undone.
+              Are you sure you want to delete this account? This action cannot
+              be undone.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsDeleteDialogOpen(false)} disabled={isProcessing}>
+            <Button
+              variant="outline"
+              onClick={() => setIsDeleteDialogOpen(false)}
+              disabled={isProcessing}
+            >
               Cancel
             </Button>
-            <Button variant="destructive" onClick={handleDeleteAccount} disabled={isProcessing}>
+            <Button
+              variant="destructive"
+              onClick={handleDeleteAccount}
+              disabled={isProcessing}
+            >
               {isProcessing ? "Deleting..." : "Delete"}
             </Button>
           </DialogFooter>

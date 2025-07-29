@@ -1,11 +1,13 @@
-
 import React, { useState, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "../ui/Card";
 import { motion } from "framer-motion";
 import { Users, ShoppingCart, DollarSign } from "lucide-react";
 import { toast } from "sonner";
-import { getAllOrdersCount, getRevnueCount, loadAllUsersCount } from "../../lib/adminApi";
-
+import {
+  getAllOrdersCount,
+  getRevnueCount,
+  loadAllUsersCount,
+} from "../../lib/adminApi";
 
 const AdminDashboard = () => {
   const [totalUsers, setTotalUsers] = useState(0);
@@ -13,62 +15,56 @@ const AdminDashboard = () => {
   const [revenue, setRevenue] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
-useEffect(() => {
-  const fetchData = async () => {
-    setIsLoading(true);
-    try {
-      const [usersResponse, activeOrdersResponse, revenueResponse] = await Promise.all([
-        loadAllUsersCount(),
-        getAllOrdersCount(),
-        getRevnueCount()
-      ]);
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const [usersResponse, activeOrdersResponse, revenueResponse] =
+          await Promise.all([
+            loadAllUsersCount(),
+            getAllOrdersCount(),
+            getRevnueCount(),
+          ]);
 
-      if (usersResponse && usersResponse.count >= 0) {
-        setTotalUsers(usersResponse.count);
-      } else {
-        setTotalUsers(0);
-        toast.error("No users found");
+        if (usersResponse && usersResponse.count >= 0) {
+          setTotalUsers(usersResponse.count);
+        } else {
+          setTotalUsers(0);
+          toast.error("No users found");
+        }
+
+        if (activeOrdersResponse && activeOrdersResponse.count >= 0) {
+          setActiveOrders(activeOrdersResponse.count);
+        } else {
+          setActiveOrders(0);
+          toast.error("No active orders found");
+        }
+
+        if (revenueResponse && revenueResponse.count >= 0) {
+          setRevenue(revenueResponse.count);
+        } else {
+          setRevenue(0);
+          toast.error("No revenue data found");
+        }
+      } catch (error) {
+        console.error("Error fetching initial data:", error);
+        toast.error("Something went wrong while fetching dashboard data.");
+      } finally {
+        setIsLoading(false);
       }
+    };
 
-      if (activeOrdersResponse && activeOrdersResponse.count >= 0) {
-        setActiveOrders(activeOrdersResponse.count);
-      } else {
-        setActiveOrders(0);
-        toast.error("No active orders found");
-      }
-
-      if (revenueResponse && revenueResponse.count >= 0) {
-        setRevenue(revenueResponse.count);
-      } else {
-        setRevenue(0);
-        toast.error("No revenue data found");
-      }
-
-    } catch (error) {
-      console.error("Error fetching initial data:", error);
-      toast.error("Something went wrong while fetching dashboard data.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  fetchData();
-}, []);
-
+    fetchData();
+  }, []);
 
   if (isLoading) {
     return (
-        <div className="flex items-center justify-center min-h-[60vh]">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-        </div>
-     
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+      </div>
     );
   }
 
-
-
-
-  
   // Calculate percentage changes based on previous period only if we have real data
   const userPercentChange = totalUsers > 0 ? "+5.2%" : "0%";
   const orderPercentChange = activeOrders > 0 ? "-12%" : "0%";
@@ -87,7 +83,7 @@ useEffect(() => {
           {isLoading ? (
             <div className="h-8 w-20 bg-muted animate-pulse rounded"></div>
           ) : (
-            <motion.div 
+            <motion.div
               className="text-2xl font-bold"
               key={totalUsers}
               initial={{ scale: 0.95 }}
@@ -97,7 +93,9 @@ useEffect(() => {
               {totalUsers.toLocaleString()}
             </motion.div>
           )}
-          <p className="text-xs text-gray-500">{userPercentChange} from last month</p>
+          <p className="text-xs text-gray-500">
+            {userPercentChange} from last month
+          </p>
         </CardContent>
       </Card>
       <Card>
@@ -111,7 +109,7 @@ useEffect(() => {
           {isLoading ? (
             <div className="h-8 w-20 bg-muted animate-pulse rounded"></div>
           ) : (
-            <motion.div 
+            <motion.div
               className="text-2xl font-bold"
               key={activeOrders}
               initial={{ scale: 0.95 }}
@@ -121,7 +119,9 @@ useEffect(() => {
               {activeOrders}
             </motion.div>
           )}
-          <p className="text-xs text-gray-500">{orderPercentChange} from last month</p>
+          <p className="text-xs text-gray-500">
+            {orderPercentChange} from last month
+          </p>
         </CardContent>
       </Card>
       <Card>
@@ -135,7 +135,7 @@ useEffect(() => {
           {isLoading ? (
             <div className="h-8 w-20 bg-muted animate-pulse rounded"></div>
           ) : (
-            <motion.div 
+            <motion.div
               className="text-2xl font-bold"
               key={revenue}
               initial={{ scale: 0.95 }}
@@ -145,7 +145,9 @@ useEffect(() => {
               ${revenue.toLocaleString()}
             </motion.div>
           )}
-          <p className="text-xs text-gray-500">{revenuePercentChange} from last month</p>
+          <p className="text-xs text-gray-500">
+            {revenuePercentChange} from last month
+          </p>
         </CardContent>
       </Card>
     </div>

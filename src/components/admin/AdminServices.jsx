@@ -27,12 +27,12 @@ import { toast } from "sonner";
 
 import CreateServiceForm from "./customization/CreateServiceForm";
 import UpdateServiceForm from "./customization/UpdateServiceForm";
-import { deleteService,  loadServicesByAdmin } from "../../lib/serviceApi";
+import { deleteService, loadServicesByAdmin } from "../../lib/serviceApi";
 
 const AdminServices = () => {
   const [services, setServices] = useState([]);
   const [selectedService, setSelectedService] = useState(null);
-  
+
   const [filteredServices, setFilteredServices] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -40,48 +40,43 @@ const AdminServices = () => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [isNew, setIsNew] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
-   const [loading, setLoading] = useState(true); // Loading state
-      const [error, setError] = useState(null); // Error state for fetch failures
-  
-      const [currentPage, setCurrentPage] = useState(1);
-      const [lastPage, setLastPage] = useState(1);
-      const [total, setTotal] = useState(0);
-  
+  const [loading, setLoading] = useState(true); // Loading state
+  const [error, setError] = useState(null); // Error state for fetch failures
 
- useEffect(() => {
-        const fetchData = async (page = 1) => {
-            setLoading(true);
-            setError(null);
-            try {
-                const [servicesData] = await Promise.all([
-                    loadServicesByAdmin(page),
-                   
-                ]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [lastPage, setLastPage] = useState(1);
+  const [total, setTotal] = useState(0);
 
-                if (servicesData && Array.isArray(servicesData.products.data)) {
-                    setServices(servicesData.products.data);
-                    setFilteredServices(servicesData.products.data);
-                    setCurrentPage(servicesData.products.current_page);
-                    setLastPage(servicesData.products.last_page);
-                    setTotal(servicesData.products.total);
-                } else {
-                    // Handle case where servicesData.services is not an array
-                    setServices([]);
-                    toast.warning("No services found from the API.");
-                }
+  useEffect(() => {
+    const fetchData = async (page = 1) => {
+      setLoading(true);
+      setError(null);
+      try {
+        const [servicesData] = await Promise.all([loadServicesByAdmin(page)]);
 
-            } catch (err) {
-                console.error("Error loading data:", err);
-                setError("Failed to load services. Please try again later.");
-                toast.error("Failed to load services.");
-            } finally {
-                setLoading(false);
-            }
-        };
+        if (servicesData && Array.isArray(servicesData.products.data)) {
+          setServices(servicesData.products.data);
+          setFilteredServices(servicesData.products.data);
+          setCurrentPage(servicesData.products.current_page);
+          setLastPage(servicesData.products.last_page);
+          setTotal(servicesData.products.total);
+        } else {
+          // Handle case where servicesData.services is not an array
+          setServices([]);
+          toast.warning("No services found from the API.");
+        }
+      } catch (err) {
+        console.error("Error loading data:", err);
+        setError("Failed to load services. Please try again later.");
+        toast.error("Failed to load services.");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-        fetchData(currentPage);
-        window.scrollTo(0, 0);
-    }, [currentPage]); // Empty dependency array means this runs once on mount
+    fetchData(currentPage);
+    window.scrollTo(0, 0);
+  }, [currentPage]); // Empty dependency array means this runs once on mount
 
   const handleEditService = (service) => {
     setSelectedService(service);
@@ -110,7 +105,9 @@ const AdminServices = () => {
       toast.success("Service deleted");
       setIsDeleteDialogOpen(false);
       setSelectedService(null);
-      setServices((prev) => prev.filter((serv) => serv.id !== selectedService.id));
+      setServices((prev) =>
+        prev.filter((serv) => serv.id !== selectedService.id)
+      );
     } catch (err) {
       console.error("Error deleting service:", err);
       toast.error("Failed to delete service");
@@ -119,23 +116,24 @@ const AdminServices = () => {
     }
   };
 
-   useEffect(() => {
-         let currentFiltered = services;
- 
-       
-         // Apply search query filter
-         if (searchQuery) {
-             currentFiltered = currentFiltered.filter(
-                 service =>
-                     (service.name_ar && service.name_ar.toLowerCase().includes(searchQuery.toLowerCase())) ||
-                     (service.name_en && service.name_en.toLowerCase().includes(searchQuery.toLowerCase()))
-             );
-         }
- 
-         setFilteredServices(currentFiltered);
-      
-     }, [searchQuery, services]);
- 
+  useEffect(() => {
+    let currentFiltered = services;
+
+    // Apply search query filter
+    if (searchQuery) {
+      currentFiltered = currentFiltered.filter(
+        (service) =>
+          (service.name_ar &&
+            service.name_ar
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase())) ||
+          (service.name_en &&
+            service.name_en.toLowerCase().includes(searchQuery.toLowerCase()))
+      );
+    }
+
+    setFilteredServices(currentFiltered);
+  }, [searchQuery, services]);
 
   return (
     <div className="space-y-6">
@@ -158,65 +156,70 @@ const AdminServices = () => {
         />
       </div>
 
-           {loading ? (
-                    <div className="flex justify-center items-center h-64">
-                        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                        <span className="ml-2 text-muted-foreground">Loading services...</span>
-                    </div>
-                ) : error ? (
-                    <div className="text-center py-12">
-                        <h2 className="text-xl font-bold text-destructive mb-4">Error Loading Services</h2>
-                        <p className="text-muted-foreground mb-6">{error}</p>
-                        {/* Optionally add a retry button */}
-                        {/* <Button onClick={() => window.location.reload()}>Retry</Button> */}
-                    </div>
-                ) : filteredServices.length === 0 ? (
-                    <div className="text-center py-12">
-                        <h2 className="text-xl font-bold mb-4">No Services Found</h2>
-                        <p className="text-muted-foreground">
-                            {searchQuery 
-                                ? "Your search and filter returned no results."
-                                : "There are no services available at the moment."}
-                        </p>
-                    </div>
-                ) : (
-
-          <ServiceList
-            services={filteredServices}
-            onEdit={handleEditService}
-            onDelete={handleDeleteService}
-          />
-                )}
-                 <div className="flex justify-center items-center gap-2 mt-8">
+      {loading ? (
+        <div className="flex justify-center items-center h-64">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <span className="ml-2 text-muted-foreground">
+            Loading services...
+          </span>
+        </div>
+      ) : error ? (
+        <div className="text-center py-12">
+          <h2 className="text-xl font-bold text-destructive mb-4">
+            Error Loading Services
+          </h2>
+          <p className="text-muted-foreground mb-6">{error}</p>
+          {/* Optionally add a retry button */}
+          {/* <Button onClick={() => window.location.reload()}>Retry</Button> */}
+        </div>
+      ) : filteredServices.length === 0 ? (
+        <div className="text-center py-12">
+          <h2 className="text-xl font-bold mb-4">No Services Found</h2>
+          <p className="text-muted-foreground">
+            {searchQuery
+              ? "Your search and filter returned no results."
+              : "There are no services available at the moment."}
+          </p>
+        </div>
+      ) : (
+        <ServiceList
+          services={filteredServices}
+          onEdit={handleEditService}
+          onDelete={handleDeleteService}
+        />
+      )}
+      <div className="flex justify-center items-center gap-2 mt-8">
         <button
-            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
-            className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+          className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
         >
-            Prev
+          Prev
         </button>
 
         <span className="text-sm text-muted-foreground">
-            Page {currentPage} of {lastPage}  — Total: {total} services
+          Page {currentPage} of {lastPage} — Total: {total} services
         </span>
 
         <button
-            onClick={() => setCurrentPage(prev => Math.min(prev + 1, lastPage))}
-            disabled={currentPage === lastPage}
-            className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, lastPage))}
+          disabled={currentPage === lastPage}
+          className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
         >
-            Next
+          Next
         </button>
-    </div>
-
-     
+      </div>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white">
           <DialogHeader>
-            <DialogTitle>{isNew ? "Add New Service" : "Update Service"}</DialogTitle>
+            <DialogTitle>
+              {isNew ? "Add New Service" : "Update Service"}
+            </DialogTitle>
             <DialogDescription>
-              {isNew ? "Fill in the details to create a new service." : "Edit the service details."}
+              {isNew
+                ? "Fill in the details to create a new service."
+                : "Edit the service details."}
             </DialogDescription>
           </DialogHeader>
 
@@ -233,7 +236,9 @@ const AdminServices = () => {
               service={selectedService}
               onSuccess={(updatedService) => {
                 setServices((prev) =>
-                  prev.map((serv) => (serv.id === updatedService.id ? updatedService : serv))
+                  prev.map((serv) =>
+                    serv.id === updatedService.id ? updatedService : serv
+                  )
                 );
                 setIsDialogOpen(false);
               }}
@@ -243,12 +248,16 @@ const AdminServices = () => {
         </DialogContent>
       </Dialog>
 
-      <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+      <AlertDialog
+        open={isDeleteDialogOpen}
+        onOpenChange={setIsDeleteDialogOpen}
+      >
         <AlertDialogContent className="bg-red-200">
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete {selectedService?.name}.
+              This action cannot be undone. This will permanently delete{" "}
+              {selectedService?.name}.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -290,7 +299,6 @@ const ServiceList = ({ services, onEdit, onDelete }) => {
                 src={service.image}
                 alt={service.name_ar}
                 className="w-full h-full object-cover"
-              
               />
             )}
           </div>
@@ -305,9 +313,15 @@ const ServiceList = ({ services, onEdit, onDelete }) => {
             </p>
 
             <div className="flex items-center justify-between mt-2">
-              <span className="font-semibold">${parseFloat(service.price).toFixed(2)}</span>
+              <span className="font-semibold">
+                ${parseFloat(service.price).toFixed(2)}
+              </span>
               <div className="flex space-x-1">
-                <Button size="sm" variant="outline" onClick={() => onEdit(service)}>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => onEdit(service)}
+                >
                   <Pencil className="h-4 w-4" />
                 </Button>
                 <Button

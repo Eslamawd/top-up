@@ -7,7 +7,6 @@ import { Input } from "./ui/Input";
 import { Label } from "./ui/Label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/Card";
 import { toast } from "sonner";
-import MainLayout from "./MainLayout";
 import { Separator } from "./ui/Separator";
 import { Alert, AlertDescription } from "./ui/Alert";
 
@@ -18,7 +17,7 @@ import api from "../api/axiosClient";
 
 const RegisterComponent= () => {
   const navigate = useNavigate();
-  const {  user } = useAuth();
+  const {  user, login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -52,8 +51,15 @@ const register = async (formData) => {
   try{
     await api().get("/sanctum/csrf-cookie"); // مهم في تسجيل الحساب الجديد
     const response = await api().post("/register", formData);
-    return response.data; // نعيد المستخدم فقط
+    console.log(response);
+    await login(response.data.user)
+    if (response.status !== 200) {
+      throw new Error("Registration failed");
+    }
+    toast.success("Registration successful!");
+    return response.data.user; // نعيد المستخدم فقط
   } catch (error) {
+
     return error; // نرمي الخطأ لنعالجه في handleSubmit
   }
 };
@@ -72,6 +78,9 @@ const handleSubmit = async (e) => {
 
   if (formData.password.length < 8) {
     return toast.error("Password must be at least 8 characters long");
+  }
+  if (formData.phone.length < 10) {
+    return toast.error("Phone number is Required");
   }
 
   setIsSubmitting(true);
@@ -109,7 +118,7 @@ navigate('/login');
 
 
   return (
-    <MainLayout>
+    <>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -265,7 +274,7 @@ navigate('/login');
           </CardContent>
         </Card>
       </motion.div>
-    </MainLayout>
+    </>
   );
 };
 

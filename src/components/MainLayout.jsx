@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { ShoppingCart, User, Home, Package, LifeBuoy, HelpCircle, Settings, Menu } from "lucide-react";
 import { Button } from "./ui/button";
 import Header from "./Header";
@@ -45,6 +45,7 @@ const MainLayout = ({ children, showFooter = true }) => {
       {/* Main Content with top padding for header */}
       <main className="flex-grow pt-20 pb-16 md:pb-0">
         {children}
+        <Outlet />
       </main>
       
       {/* Floating Chat Bot - positioned above mobile navigation */}
@@ -69,7 +70,7 @@ const MainLayout = ({ children, showFooter = true }) => {
           <ul className="space-y-2">
             {footerLinks.services.map((item, i) => (
               <li key={i}>
-                <Link to={item.href} clLinkssName="text-gray-400 hover:text-white transition-colors text-sm">
+                <Link to={item.href} className="text-gray-400 hover:text-white transition-colors text-sm">
                   {item.name}
                 </Link>
               </li>
@@ -137,6 +138,8 @@ const MainLayout = ({ children, showFooter = true }) => {
           </div>
         </footer>
       )}
+
+      
     </div>
   );
 };

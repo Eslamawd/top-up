@@ -10,9 +10,11 @@ import { Mail, Lock, Eye, EyeOff, Info } from "lucide-react";
 import { Separator } from "./ui/Separator";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "./ui/Dialog";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/Card";
-import { motion } from "framer-motion"; // تأكد إنك تستورد motion من framer-motion
-import MainLayout from "./MainLayout"; // تأكد من مسار الاستيراد
+import { motion } from "framer-motion"; // تأكد إنك تستورد motion من framer-motio
 import api from "../api/axiosClient";
+import { forgetPassword } from "../lib/email";
+
+
 
 const LoginComponent = () => {
   const navigate = useNavigate();
@@ -79,19 +81,23 @@ const LoginComponent = () => {
       // هنا تستدعي دالة إرسال رابط إعادة تعيين كلمة المرور
       // await sendResetEmail(resetEmail); // مثال إذا عندك دالة من الـ context أو API
 ; // استبدل هذا بالدالة الحقيقية
-      await new Promise((r) => setTimeout(r, 1000));
+      const response = await forgetPassword({ email: resetEmail });
       
+      console.log("Reset email sent successfully:", response);
       setResetSent(true);
-      toast.success("Reset link sent!");
+      toast.success(`${response.message}`);
+      setResetEmail(""); // إعادة تعيين حقل البريد الإلكتروني
+      setShowResetDialog(false); // إغلاق النافذة بعد الإرسال
     } catch (err) {
       toast.error(err.response?.data?.message || "Failed to send reset email");
+
     } finally {
       setResetSubmitting(false);
     }
   };
 
   return (
-    <MainLayout>
+    <>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -236,7 +242,7 @@ const LoginComponent = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </MainLayout>
+    </>
   );
 };
 

@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { loadAllProductWithCat } from '../lib/categoryApi';
-import { toast } from 'sonner';
+import React, { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import { loadAllProductWithCat } from "../lib/categoryApi";
+import { toast } from "sonner";
 import { Card, CardContent } from "../components/ui/Card";
 import { Button } from "../components/ui/button";
 import { ArrowRight, Loader2 } from "lucide-react";
-
-import MainLayout from '../components/MainLayout';
-import ServiceCard from '../components/services/ServiceCard';
+import ServiceCard from "../components/services/ServiceCard";
 
 function CategoriesDetail() {
   const { id } = useParams();
@@ -60,10 +58,10 @@ function CategoriesDetail() {
   }, [id, currentPage, childrenPage]);
 
   return (
-    <MainLayout>
+    <div className="container mx-auto px-4 py-8 mt-20">
       <div className="mb-8">
         <h1 className="text-3xl font-bold">
-          Category: {category?.name_en || ''}
+          Category: {category?.name_en || ""}
         </h1>
         <p className="text-muted-foreground">
           {category?.description || "Show All Servcies in This Category"}
@@ -77,7 +75,9 @@ function CategoriesDetail() {
         </div>
       ) : error ? (
         <div className="text-center py-12">
-          <h2 className="text-xl font-bold text-destructive mb-4">Error in loaded please Try Again</h2>
+          <h2 className="text-xl font-bold text-destructive mb-4">
+            Error in loaded please Try Again
+          </h2>
           <p className="text-muted-foreground mb-6">{error}</p>
         </div>
       ) : (
@@ -87,7 +87,7 @@ function CategoriesDetail() {
             <div className="mb-12 mt-16">
               <h2 className="text-2xl font-bold mb-4">Category </h2>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {children.map(child => (
+                {children.map((child) => (
                   <Link to={`/categories/${child.id}`} key={child.id}>
                     <Card className="bg-card h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                       <CardContent className="p-6 flex flex-col h-full">
@@ -114,18 +114,25 @@ function CategoriesDetail() {
               {/* Pagination للفئات الفرعية */}
               <div className="flex justify-center items-center gap-2 mt-6">
                 <Button
-                  onClick={() => setChildrenPage(prev => Math.max(prev - 1, 1))}
+                  onClick={() =>
+                    setChildrenPage((prev) => Math.max(prev - 1, 1))
+                  }
                   disabled={childrenPage === 1}
                 >
                   Prev
                 </Button>
 
                 <span className="text-sm text-muted-foreground">
-                  Page {childrenPage} as {childrenLastPage} — Total: {childrenTotal} Category
+                  Page {childrenPage} as {childrenLastPage} — Total:{" "}
+                  {childrenTotal} Category
                 </span>
 
                 <Button
-                  onClick={() => setChildrenPage(prev => Math.min(prev + 1, childrenLastPage))}
+                  onClick={() =>
+                    setChildrenPage((prev) =>
+                      Math.min(prev + 1, childrenLastPage)
+                    )
+                  }
                   disabled={childrenPage === childrenLastPage}
                 >
                   Next
@@ -146,7 +153,9 @@ function CategoriesDetail() {
               {/* Pagination للمنتجات */}
               <div className="flex justify-center items-center gap-2 mt-8">
                 <Button
-                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.max(prev - 1, 1))
+                  }
                   disabled={currentPage === 1}
                 >
                   Prev
@@ -157,7 +166,9 @@ function CategoriesDetail() {
                 </span>
 
                 <Button
-                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, lastPage))}
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.min(prev + 1, lastPage))
+                  }
                   disabled={currentPage === lastPage}
                 >
                   Next
@@ -166,12 +177,12 @@ function CategoriesDetail() {
             </>
           ) : (
             <p className="text-center text-muted-foreground py-8">
-             Not Servcies in This Category
+              Not Servcies in This Category
             </p>
           )}
         </>
       )}
-    </MainLayout>
+    </div>
   );
 }
 
