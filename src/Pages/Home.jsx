@@ -14,41 +14,49 @@ import FooterTopFeatures from "../components/ui/MainFoter";
 
 const categories = [
   {
+    id: 31,
     title: "Microsoft",
     description: "The store offers the Microsoft app of products.",
     image: "/microsoft.png",
   },
   {
+    id: 61,
     title: "Social Medias",
     description: "The store offers the Life Social Medias of products.",
     image: "/social.png",
   },
   {
+    id: 50,
     title: "Gaming",
     description: "The store offers the Gaming app of products.",
     image: "/gaming.png",
   },
   {
+    id: 45,
     title: "Life Chat",
     description: "The store offers the Life Chat any app of products.",
     image: "/mobile.png",
   },
   {
+    id: 57,
     title: "Stream",
     description: "The store offers the Streams any app of products.",
     image: "/stream.png",
   },
   {
+    id: 53,
     title: "Gift Cards",
     description: "The store Gift Cards the Life Chat any app of products.",
     image: "/gift.png",
   },
   {
+    id: 58,
     title: "Finance",
     description: "The store Finance of products.",
     image: "/Finance.png",
   },
   {
+    id: 59,
     title: "Telecom",
     description: "The store offers the Telecom Chat any app of products.",
     image: "/Telecom.png",
@@ -151,7 +159,7 @@ function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
             {categories.map((cat, index) => (
-              <Link key={index} to={`/categories`}>
+              <Link key={index} to={`/categories/${cat.id}`}>
                 <Card className="bg-card h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                   <CardContent className="p-6 h-full bg-blue-950 flex flex-col justify-between">
                     <div className="flex justify-between items-start mb-4">

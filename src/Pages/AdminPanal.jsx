@@ -87,58 +87,72 @@ const AdminPanel = () => {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
           <div className="md:col-span-1">
             <Card>
-              <CardContent className="p-4">
+              <CardContent className="p-8">
                 <nav className="space-y-2">
                   <Link
                     to="/admin"
-                    className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-primary"
+                    className="flex items-center gap-2 text-lg font-medium text-gray-700 hover:text-primary"
                   >
-                    <BarChart3 className="mr-2 h-6 w-6 rounded bg-blue-950 text-white" />
+                    <div className="rounded-lg w-10 h-8 bg-blue-950 flex items-center justify-center text-white">
+                      <BarChart3 className=" h-4 w-4 " />
+                    </div>
                     Dashboard
                   </Link>
                   <Link
                     to="/admin/customers"
-                    className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-primary"
+                    className="flex items-center gap-2 text-lg font-medium text-gray-700 hover:text-primary"
                   >
-                    <Users className="mr-2 h-6 w-6 rounded bg-blue-950 text-white" />
+                    <div className="rounded-lg w-10 h-8 bg-blue-950 flex items-center justify-center text-white">
+                      <Users className="h-4 w-4" />
+                    </div>
                     Customers
                   </Link>
 
                   <Link
                     to="/admin/categories"
-                    className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-primary"
+                    className="flex items-center gap-2 text-lg font-medium text-gray-700 hover:text-primary"
                   >
-                    <TicketCheck className="mr-2 h-6 w-6 rounded bg-blue-950 text-white" />
+                    <div className="rounded-lg w-10 h-8 bg-blue-950 flex items-center justify-center text-white">
+                      <TicketCheck className="h-4 w-4 " />
+                    </div>
                     Category
                   </Link>
 
                   <Link
                     to="/admin/services"
-                    className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-primary"
+                    className="flex items-center gap-2 text-lg font-medium text-gray-700 hover:text-primary"
                   >
-                    <Package className="mr-2 h-6 w-6 rounded bg-blue-950 text-white" />
+                    <div className="rounded-lg w-10 h-8 bg-blue-950 flex items-center justify-center text-white">
+                      <Package className="h-4 w-4 " />
+                    </div>
                     Services
                   </Link>
                   <Link
                     to="/admin/payments"
-                    className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-primary"
+                    className="flex items-center gap-2 text-lg font-medium text-gray-700 hover:text-primary"
                   >
-                    <LucidePartyPopper className="mr-2 h-6 w-6 rounded bg-blue-950 text-white" />
+                    <div className="rounded-lg w-10 h-8 bg-blue-950 flex items-center justify-center text-white">
+                      <LucidePartyPopper className=" h-4 w-4 " />
+                    </div>
                     Payments
                   </Link>
                   <Link
                     to="/admin/subscriptions"
-                    className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-primary"
+                    className="flex items-center gap-2 text-lg font-medium text-gray-700 hover:text-primary"
                   >
-                    <StarsIcon className="mr-2 h-6 w-6 rounded bg-blue-950 text-white" />
+                    <div className="rounded-lg w-10 h-8 bg-blue-950 flex items-center justify-center text-white">
+                      <StarsIcon className=" h-4 w-4 " />
+                    </div>
                     subscriptions
                   </Link>
 
                   <Link
                     to="/admin/orders"
-                    className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-primary"
+                    className="flex items-center gap-2 text-lg font-medium text-gray-700 hover:text-primary"
                   >
-                    <ShoppingCart className="mr-2 h-6 w-6 rounded bg-blue-950 text-white" />
+                    <div className="rounded-lg w-10 h-8 bg-blue-950 flex items-center justify-center text-white">
+                      <ShoppingCart className=" h-4 w-4 " />
+                    </div>
                     Orders
                   </Link>
                 </nav>

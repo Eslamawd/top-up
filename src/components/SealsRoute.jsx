@@ -6,7 +6,7 @@ const SealsRoute = ({ children }) => {
 
   if (!user) return <Navigate to="/login" />;
 
-  if (user.role !== "seal") return <Navigate to="/" />;
+  if (user.role !== "seals") return <Navigate to="/" />;
 
   return children;
 };

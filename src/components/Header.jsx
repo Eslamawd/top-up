@@ -94,25 +94,25 @@ function Header() {
 
       <div className=" hidden md:flex flex-row justify-center h-3.5 items-center   mt-6  p-4">
         <Link
-          to="/categories"
+          to="/categories/57"
           className=" rounded-4xl bg-blue-50 w-30 mr-2  transition-colors cursor-pointer hover:bg-blue-950 hover:text-gray-50"
         >
           Streaming
         </Link>
         <Link
-          to="/categories"
+          to="/categories/50"
           className=" rounded-4xl bg-blue-50 w-30 mr-2  transition-colors cursor-pointer hover:bg-blue-950 hover:text-gray-50"
         >
           Gaming
         </Link>
         <Link
-          to="/categories"
+          to="/categories/61"
           className=" rounded-4xl bg-blue-50 w-30 mr-2  transition-colors cursor-pointer hover:bg-blue-950 hover:text-gray-50"
         >
           Social media
         </Link>
         <Link
-          to="/categories"
+          to="/categories/45"
           className=" rounded-4xl bg-blue-50 w-30 mr-2  transition-colors cursor-pointer hover:bg-blue-950 hover:text-gray-50"
         >
           Live chat
