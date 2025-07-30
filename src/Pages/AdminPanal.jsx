@@ -16,6 +16,7 @@ import {
   TicketCheck,
   BarChart3,
   LucidePartyPopper,
+  LogOut,
   StarsIcon,
 } from "lucide-react";
 import AdminDashboard from "../components/admin/AdminDashboard";
