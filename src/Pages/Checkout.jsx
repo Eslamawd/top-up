@@ -6,6 +6,7 @@ import {
   CardTitle,
 } from "../components/ui/Card";
 import { Badge } from "../components/ui/badge"; // Assuming you have a Badge component
+import { Button } from "../components/ui/button"; // Assuming you have a Badge component
 import { toast } from "sonner";
 import { loadOrder } from "../lib/orderApi";
 import { Loader2 } from "lucide-react"; // For loading spinner
