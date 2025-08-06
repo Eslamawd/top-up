@@ -317,7 +317,7 @@ const CategoryList = ({ categories, onEdit, onDelete }) => {
                   className="font-semibold text-left hover:underline"
                   onClick={() => toggleExpand(category.id)}
                 >
-                  {category.name_ar}
+                  {category.name_en}
                 </button>
               </TableCell>
               <TableCell>
@@ -353,7 +353,7 @@ const CategoryList = ({ categories, onEdit, onDelete }) => {
               category.children?.map((child) => (
                 <TableRow key={child.id} className="bg-black">
                   <TableCell className="pl-8">{child.id}</TableCell>
-                  <TableCell className="pl-8">↳ {child.name_ar}</TableCell>
+                  <TableCell className="pl-8">↳ {child.name_en}</TableCell>
                   <TableCell>
                     <img
                       src={child.image || "/placeholder.png"}

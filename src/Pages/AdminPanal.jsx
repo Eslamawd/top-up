@@ -18,6 +18,8 @@ import {
   LucidePartyPopper,
   LogOut,
   StarsIcon,
+  AppWindow,
+  RedoIcon,
 } from "lucide-react";
 import AdminDashboard from "../components/admin/AdminDashboard";
 import { AdminOrders } from "../components/admin/AdminOrders";
@@ -28,6 +30,8 @@ import AdminCategory from "../components/admin/AdminCategory";
 import ProtectedRoute from "../components/ProtectedRoute";
 import AdminPayments from "../components/admin/AdminPayments";
 import AdminSubscriptions from "../components/admin/AdminSubscribtion";
+import AdminSync from "../components/admin/AdminSync";
+import AdminRenews from "../components/admin/AdminRenews";
 
 const AdminPanel = () => {
   const navigate = useNavigate();
@@ -155,6 +159,25 @@ const AdminPanel = () => {
                     </div>
                     Orders
                   </Link>
+
+                  <Link
+                    to="/admin/sync"
+                    className="flex items-center gap-2 text-lg font-medium text-gray-700 hover:text-primary"
+                  >
+                    <div className="rounded-lg w-10 h-8 bg-blue-950 flex items-center justify-center text-white">
+                      <AppWindow className=" h-4 w-4 " />
+                    </div>
+                    Sync
+                  </Link>
+                  <Link
+                    to="/admin/renews"
+                    className="flex items-center gap-2 text-lg font-medium text-gray-700 hover:text-primary"
+                  >
+                    <div className="rounded-lg w-10 h-8 bg-blue-950 flex items-center justify-center text-white">
+                      <RedoIcon className=" h-4 w-4 " />
+                    </div>
+                    Renews
+                  </Link>
                 </nav>
               </CardContent>
             </Card>
@@ -169,6 +192,8 @@ const AdminPanel = () => {
               <Route path="/services" element={<AdminServices />} />
               <Route path="/payments" element={<AdminPayments />} />
               <Route path="/subscriptions" element={<AdminSubscriptions />} />
+              <Route path="sync" element={<AdminSync />} />
+              <Route path="renews" element={<AdminRenews />} />
               <Route
                 path="/reports"
                 element={<div>Reports and Analytics</div>}

@@ -297,19 +297,19 @@ const ServiceList = ({ services, onEdit, onDelete }) => {
             {service.image && (
               <img
                 src={service.image}
-                alt={service.name_ar}
+                alt={service.name_en}
                 className="w-full h-full object-cover"
               />
             )}
           </div>
 
           <CardHeader className="p-4 pb-0">
-            <CardTitle className="text-lg">{service.name_ar}</CardTitle>
+            <CardTitle className="text-lg">{service.name_en}</CardTitle>
           </CardHeader>
 
           <CardContent className="p-4">
             <p className="text-sm text-muted-foreground line-clamp-2 mb-2">
-              {service?.category?.name_ar}
+              {service?.category?.name_en}
             </p>
 
             <div className="flex items-center justify-between mt-2">

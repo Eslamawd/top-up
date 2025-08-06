@@ -35,31 +35,23 @@ import {
   DollarSign,
 } from "lucide-react";
 import { Badge } from "../ui/badge";
-import {
-  changeStatus,
-  getAllSubCount,
-  getRevnueSub,
-  getsubscribeByAdmin,
-} from "../../lib/subscriptionApi";
+import { changeStatus } from "../../lib/subscriptionApi";
 import { toast } from "sonner";
 import { Label } from "../ui/Label";
 import { Separator } from "../ui/Separator";
 import { deleteAccSub, newAccSub, updateAccSub } from "../../lib/accountSub";
 import { Input } from "../ui/Input";
+import { getRenewsByAdmin } from "../../lib/renew";
 // Removed useNavigate as it's no longer needed for data refresh
 // import { useNavigate } from 'react-router-dom';
 
-const AdminSubscriptions = () => {
-  const [subscriptions, setSubscriptions] = useState([]);
+const AdminRenews = () => {
+  const [renews, setRenews] = useState([]);
   const [expandedId, setExpandedId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);
   const [total, setTotal] = useState(0);
-
-  const [totalSub, setTotalSub] = useState(0);
-  const [revenue, setRevenue] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
 
   // const navigate = useNavigate(); // Removed
 
@@ -76,61 +68,28 @@ const AdminSubscriptions = () => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [accountToDeleteId, setAccountToDeleteId] = useState(null);
 
-  // Function to fetch subscriptions data
-  const fetchSubscriptions = async () => {
+  // Function to fetch renews data
+  const fetchRenews = async () => {
     setLoading(true);
     try {
-      const res = await getsubscribeByAdmin(currentPage);
-      const data = res.subscriptions.data || [];
+      const res = await getRenewsByAdmin(currentPage);
+      const data = res.renews.data || [];
 
-      setSubscriptions(data);
-      setCurrentPage(res.subscriptions.current_page);
-      setLastPage(res.subscriptions.last_page);
-      setTotal(res.subscriptions.total);
+      setRenews(data);
+      setCurrentPage(res.renews.current_page);
+      setLastPage(res.renews.last_page);
+      setTotal(res.renews.total);
     } catch (error) {
-      console.error("Failed to load subscriptions:", error);
-      toast.error("Failed to load subscriptions."); // Added toast error
+      console.error("Failed to load renews:", error);
+      toast.error("Failed to load renews."); // Added toast error
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchSubscriptions();
+    fetchRenews();
   }, [currentPage]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const [SubCount, revenueResponse] = await Promise.all([
-          getAllSubCount(),
-          getRevnueSub(),
-        ]);
-
-        if (SubCount && SubCount.count >= 0) {
-          setTotalSub(SubCount.count);
-        } else {
-          setTotalSub(0);
-          toast.error("No users found");
-        }
-
-        if (revenueResponse && revenueResponse.count >= 0) {
-          setRevenue(revenueResponse.count);
-        } else {
-          setRevenue(0);
-          toast.error("No revenue data found");
-        }
-      } catch (error) {
-        console.error("Error fetching initial data:", error);
-        toast.error("Something went wrong while fetching dashboard data."); // Added toast error
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -168,7 +127,7 @@ const AdminSubscriptions = () => {
 
       setIsDialogOpen(false);
       setFormData({ email: "", password: "", subscription_id: "" }); // Reset form data
-      fetchSubscriptions(); // Refresh data after CUD operation
+      fetchRenews(); // Refresh data after CUD operation
     } catch (err) {
       console.error("Error:", err);
       toast.error("Operation failed");
@@ -182,10 +141,10 @@ const AdminSubscriptions = () => {
       const response = await changeStatus(id, { status: newRole });
 
       const updatstaut = response.subscription;
-      const updatstauts = subscriptions.map((u) =>
+      const updatstauts = renews.map((u) =>
         u.id === updatstaut.id ? updatstaut : u
       );
-      setSubscriptions(updatstauts);
+      setRenews(updatstauts);
 
       toast.success(`Status updated to ${newRole}`);
     } catch (error) {
@@ -210,7 +169,7 @@ const AdminSubscriptions = () => {
       toast.success("Account deleted successfully");
       setIsDeleteDialogOpen(false); // Close the dialog
       setAccountToDeleteId(null); // Clear the ID
-      fetchSubscriptions(); // Refresh data after deletion
+      fetchRenews(); // Refresh data after deletion
     } catch (err) {
       console.error("Failed to delete account:", err);
       toast.error("Failed to delete account");
@@ -218,11 +177,6 @@ const AdminSubscriptions = () => {
       setIsProcessing(false);
     }
   };
-
-  const userPercentChange =
-    totalSub > 0 ? `+${((totalSub / 100) * 5).toFixed(2)}%` : "0%";
-  const revenuePercentChange =
-    revenue > 0 ? `+${((revenue / 100) * 5).toFixed(2)}%` : "0%";
 
   if (loading) {
     return (
@@ -235,73 +189,16 @@ const AdminSubscriptions = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">Subscriptions Management</h2>
+        <h2 className="text-2xl font-bold">Renews Management</h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <SubtitlesIcon className="h-4 w-4 text-muted-foreground" />
-              Total Subscription
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {isLoading ? (
-              <div className="h-8 w-20 bg-muted animate-pulse rounded"></div>
-            ) : (
-              <motion.div
-                className="text-2xl font-bold"
-                key={totalSub}
-                initial={{ scale: 0.95 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.2 }}
-              >
-                {totalSub.toLocaleString()}
-              </motion.div>
-            )}
-            <p className="text-xs text-gray-500">
-              {userPercentChange} from last month
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <DollarSign className="h-4 w-4 text-muted-foreground" />
-              Revenue
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {isLoading ? (
-              <div className="h-8 w-20 bg-muted animate-pulse rounded"></div>
-            ) : (
-              <motion.div
-                className="text-2xl font-bold"
-                key={revenue}
-                initial={{ scale: 0.95 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.2 }}
-              >
-                ${revenue.toLocaleString()}
-              </motion.div>
-            )}
-            <p className="text-xs text-gray-500">
-              {revenuePercentChange} from last month
-            </p>
-          </CardContent>
-        </Card>
-      </div>
-
-      {subscriptions.length === 0 ? (
-        <p>You have no subscriptions yet.</p>
+      {renews.length === 0 ? (
+        <p>You have no renews yet.</p>
       ) : (
         <>
           <Table className="w-full">
             <TableHeader>
               <TableRow>
-                <TableHead>ID</TableHead>
                 <TableHead>Duration</TableHead>
                 <TableHead>From</TableHead>
                 <TableHead>To</TableHead>
@@ -312,40 +209,46 @@ const AdminSubscriptions = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {subscriptions.map((sub) => (
-                <React.Fragment key={sub.id}>
+              {renews.map((renew) => (
+                <React.Fragment key={renew.id}>
                   <TableRow>
-                    <TableCell>{sub.id}</TableCell>
+                    <TableCell>{renew.subscription.id}</TableCell>
                     <TableCell>
-                      <Badge>{sub.duration.replace("_", " ")}</Badge>
+                      <Badge>
+                        {renew.subscription.duration.replace("_", " ")}
+                      </Badge>
                     </TableCell>
                     <TableCell>
-                      {new Date(sub.starts_at).toLocaleDateString()}
+                      {new Date(
+                        renew.subscription.starts_at
+                      ).toLocaleDateString()}
                     </TableCell>
                     <TableCell>
-                      {new Date(sub.ends_at).toLocaleDateString()}
+                      {new Date(
+                        renew.subscription.ends_at
+                      ).toLocaleDateString()}
                     </TableCell>
                     <TableCell>
                       <span
                         className={
-                          sub.status === "active"
+                          renew.subscription.status === "active"
                             ? "text-green-600"
-                            : sub.status === "pending"
+                            : renew.subscription.status === "pending"
                             ? "text-yellow-600"
                             : "text-red-600"
                         }
                       >
-                        {sub.status}
+                        {renew.subscription.status}
                       </span>
                     </TableCell>
                     <TableCell>
                       <span className="cursor-pointer text-blue-600">
-                        {sub.iptv}
+                        {renew.subscription.iptv}
                       </span>
                     </TableCell>
                     <TableCell>
                       <span className="cursor-pointer text-blue-600">
-                        {sub.location}
+                        {renew.subscription.location}
                       </span>
                     </TableCell>
                     <TableCell>
@@ -354,11 +257,13 @@ const AdminSubscriptions = () => {
                         size="sm"
                         onClick={() =>
                           setExpandedId((prev) =>
-                            prev === sub.id ? null : sub.id
+                            prev === renew.subscription.id
+                              ? null
+                              : renew.subscription.id
                           )
                         }
                       >
-                        {expandedId === sub.id ? (
+                        {expandedId === renew.subscription.id ? (
                           <ChevronUp className="h-4 w-4" />
                         ) : (
                           <ChevronDown className="h-4 w-4" />
@@ -368,88 +273,99 @@ const AdminSubscriptions = () => {
                   </TableRow>
 
                   {/* Expanded Product Info */}
-                  {expandedId === sub.id && sub.product && sub.user && (
-                    <TableRow className="bg-muted">
-                      <TableCell>
-                        <div>
-                          <p className="font-bold text-lg">
-                            {sub.product.name_en}
-                          </p>
-                          <p>
-                            <strong>Price:</strong> ${sub.product.price}
-                          </p>
-                        </div>
-                      </TableCell>
-                      <TableCell> {sub.user.name} </TableCell>
-                      <TableCell> {sub.user.email} </TableCell>
-                      <TableCell>
-                        <Select
-                          defaultValue={sub.status}
-                          onValueChange={(val) => toggleStatusRole(sub.id, val)}
-                        >
-                          <SelectTrigger className="w-[110px]">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent className="bg-black text-white">
-                            <SelectItem value="pending">Pending</SelectItem>
-                            <SelectItem value="expired">Expired</SelectItem>
-                            <SelectItem value="active">Active</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </TableCell>
-                      <TableCell>
-                        {sub.accounts ? (
-                          <div className="space-y-2">
-                            <p>
-                              <strong>Email:</strong> {sub.accounts.email}
+                  {expandedId === renew.subscription.id &&
+                    renew.subscription.product &&
+                    renew.subscription.user && (
+                      <TableRow className="bg-muted">
+                        <TableCell>
+                          <div>
+                            <p className="font-bold text-lg">
+                              {renew.subscription.product.name_en}
                             </p>
                             <p>
-                              <strong>Password:</strong> {sub.accounts.password}
+                              <strong>Price:</strong> $
+                              {renew.subscription.product.price}
                             </p>
-                            <div className="flex gap-2 mt-2">
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => {
-                                  setFormData({
-                                    email: sub.accounts.email,
-                                    password: sub.accounts.password,
-                                    subscription_id: sub.id,
-                                    account_id: sub.accounts.id, // Pass account ID for update
-                                  });
-                                  setIsDialogOpen(true);
-                                }}
-                              >
-                                Update
-                              </Button>
-                              <Button
-                                variant="destructive"
-                                size="sm"
-                                onClick={() =>
-                                  confirmDeleteAccount(sub.accounts.id)
-                                } // Use custom confirmation
-                              >
-                                Delete
-                              </Button>
-                            </div>
                           </div>
-                        ) : (
-                          <Button
-                            onClick={() => {
-                              setFormData({
-                                email: "",
-                                password: "",
-                                subscription_id: sub.id,
-                              });
-                              setIsDialogOpen(true);
-                            }}
+                        </TableCell>
+                        <TableCell> {renew.subscription.user.name} </TableCell>
+                        <TableCell> {renew.subscription.user.email} </TableCell>
+                        <TableCell>
+                          <Select
+                            defaultValue={renew.subscription.status}
+                            onValueChange={(val) =>
+                              toggleStatusRole(renew.subscription.id, val)
+                            }
                           >
-                            Create Account
-                          </Button>
-                        )}
-                      </TableCell>
-                    </TableRow>
-                  )}
+                            <SelectTrigger className="w-[110px]">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent className="bg-black text-white">
+                              <SelectItem value="pending">Pending</SelectItem>
+                              <SelectItem value="expired">Expired</SelectItem>
+                              <SelectItem value="active">Active</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </TableCell>
+                        <TableCell>
+                          {renew.subscription.accounts ? (
+                            <div className="space-y-2">
+                              <p>
+                                <strong>Email:</strong>{" "}
+                                {renew.subscription.accounts.email}
+                              </p>
+                              <p>
+                                <strong>Password:</strong>{" "}
+                                {renew.subscription.accounts.password}
+                              </p>
+                              <div className="flex gap-2 mt-2">
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => {
+                                    setFormData({
+                                      email: renew.subscription.accounts.email,
+                                      password:
+                                        renew.subscription.accounts.password,
+                                      subscription_id: renew.subscription.id,
+                                      account_id:
+                                        renew.subscription.accounts.id, // Pass account ID for update
+                                    });
+                                    setIsDialogOpen(true);
+                                  }}
+                                >
+                                  Update
+                                </Button>
+                                <Button
+                                  variant="destructive"
+                                  size="sm"
+                                  onClick={() =>
+                                    confirmDeleteAccount(
+                                      renew.subscription.accounts.id
+                                    )
+                                  } // Use custom confirmation
+                                >
+                                  Delete
+                                </Button>
+                              </div>
+                            </div>
+                          ) : (
+                            <Button
+                              onClick={() => {
+                                setFormData({
+                                  email: "",
+                                  password: "",
+                                  subscription_id: renew.subscription.id,
+                                });
+                                setIsDialogOpen(true);
+                              }}
+                            >
+                              Create Account
+                            </Button>
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    )}
                 </React.Fragment>
               ))}
             </TableBody>
@@ -464,7 +380,7 @@ const AdminSubscriptions = () => {
               Previous
             </Button>
             <span className="text-sm text-muted-foreground">
-              Page {currentPage} of {lastPage} — Total: {total} subscriptions
+              Page {currentPage} of {lastPage} — Total: {total} renews
             </span>
             <Button
               disabled={currentPage === lastPage}
@@ -573,4 +489,4 @@ const AdminSubscriptions = () => {
   );
 };
 
-export default AdminSubscriptions;
+export default AdminRenews;

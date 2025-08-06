@@ -60,9 +60,7 @@ function CategoriesDetail() {
   return (
     <div className="container mx-auto px-4 py-8 mt-20">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold">
-          Category: {category?.name_en || ""}
-        </h1>
+        <h1 className="text-3xl font-bold">Category: {category?.name_en}</h1>
         <p className="text-muted-foreground">
           {category?.description || "Show All Servcies in This Category"}
         </p>
@@ -99,7 +97,7 @@ function CategoriesDetail() {
                           />
                         </div>
                         <h3 className="text-xl font-semibold mb-2">
-                          {child.name_en || child.name_ar}
+                          {child.name_en}
                         </h3>
                         <div className="text-primary font-medium flex items-center mt-auto">
                           Show Services
