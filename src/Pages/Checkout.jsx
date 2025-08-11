@@ -152,16 +152,24 @@ const Checkout = () => {
                             </p>
                             {/* Add more product details here if available */}
                           </div>
+                          <div className="flex flex-col gap-1 text-sm">
+                            <p>Error: {order.response.error ? "Yes" : "No"}</p>
+                            <p>Order ID: {order.response.order_id}</p>
+                            <div>
+                              Buy Item IDs:
+                              <ul className="list-disc list-inside">
+                                {order.response.buy_item_ids.map((id) => (
+                                  <li key={id}>{id}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
                         </div>
                       ) : (
                         <p className="text-sm text-muted-foreground pt-3 border-t">
                           No product details available for this order.
                         </p>
                       )}
-                    </div>
-
-                    <div className="flex justify-between items-center">
-                      Data from Order: {order.response}
                     </div>
                   </div>
                 ))}

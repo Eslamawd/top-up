@@ -23,7 +23,7 @@ function AdminSync() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.percentage.trim() || !formData.percentage_seals.trim()) {
+    if (!formData.percentage || !formData.percentage_seals) {
       toast.error("Please Add Your Percentage & Percentage Seals ");
       return;
     }
@@ -31,10 +31,8 @@ function AdminSync() {
     setIsLoading(true);
     try {
       const res = await syncProductsApi(formData);
-      if (res && res.category) {
+      if (res && res.message) {
         toast.success(`${res.message}`);
-
-        navigate("/admin/sync");
       }
     } catch (err) {
       console.error("Error creating category:", err);
