@@ -20,6 +20,8 @@ import {
   StarsIcon,
   AppWindow,
   RedoIcon,
+  Percent,
+  Disc3Icon,
 } from "lucide-react";
 import AdminDashboard from "../components/admin/AdminDashboard";
 import { AdminOrders } from "../components/admin/AdminOrders";
@@ -32,6 +34,8 @@ import AdminPayments from "../components/admin/AdminPayments";
 import AdminSubscriptions from "../components/admin/AdminSubscribtion";
 import AdminSync from "../components/admin/AdminSync";
 import AdminRenews from "../components/admin/AdminRenews";
+import AdminPercentage from "../components/admin/AdminPercentage";
+import AdminDiscount from "../components/admin/AdminDiscount";
 
 const AdminPanel = () => {
   const navigate = useNavigate();
@@ -161,6 +165,24 @@ const AdminPanel = () => {
                   </Link>
 
                   <Link
+                    to="/admin/percentage"
+                    className="flex items-center gap-2 text-lg font-medium text-gray-700 hover:text-primary"
+                  >
+                    <div className="rounded-lg w-10 h-8 bg-blue-950 flex items-center justify-center text-white">
+                      <Percent className=" h-4 w-4 " />
+                    </div>
+                    Percent
+                  </Link>
+                  <Link
+                    to="/admin/discount"
+                    className="flex items-center gap-2 text-lg font-medium text-gray-700 hover:text-primary"
+                  >
+                    <div className="rounded-lg w-10 h-8 bg-blue-950 flex items-center justify-center text-white">
+                      <Disc3Icon className=" h-4 w-4 " />
+                    </div>
+                    Discount
+                  </Link>
+                  <Link
                     to="/admin/sync"
                     className="flex items-center gap-2 text-lg font-medium text-gray-700 hover:text-primary"
                   >
@@ -192,6 +214,8 @@ const AdminPanel = () => {
               <Route path="/services" element={<AdminServices />} />
               <Route path="/payments" element={<AdminPayments />} />
               <Route path="/subscriptions" element={<AdminSubscriptions />} />
+              <Route path="/percentage" element={<AdminPercentage />} />
+              <Route path="/discount" element={<AdminDiscount />} />
               <Route path="sync" element={<AdminSync />} />
               <Route path="renews" element={<AdminRenews />} />
               <Route

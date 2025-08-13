@@ -162,7 +162,7 @@ export default function CreateProductForm({ onSuccess, onCancel }) {
                 <option value="">اختر تصنيف رئيسي</option>
                 {categories.map((cat) => (
                   <option key={cat.id} value={cat.id}>
-                    {cat.name_ar}
+                    {cat.name_en}
                   </option>
                 ))}
               </select>
@@ -181,7 +181,7 @@ export default function CreateProductForm({ onSuccess, onCancel }) {
                   <option value="">اختر تصنيف فرعي</option>
                   {getChildrenOf(selectedParent).map((child) => (
                     <option key={child.id} value={child.id}>
-                      {child.name_ar}
+                      {child.name_en}
                     </option>
                   ))}
                 </select>
