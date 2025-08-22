@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "../components/ui/button";
 import { toast } from "sonner";
-import axios from "axios";
 import { sendVerificationEmail } from "../lib/email";
 
 function SendVerified() {

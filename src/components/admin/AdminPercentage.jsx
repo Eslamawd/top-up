@@ -76,7 +76,7 @@ function AdminPercentage() {
           {prefix} {cat.name_en}
         </option>
         {cat.children_recursive?.length > 0 &&
-          renderCategoryOptions(cat.children_recursive, prefix + "--")}
+          renderCategoryOptions(cat.children_recursive, prefix + "-----")}
       </React.Fragment>
     ));
   };

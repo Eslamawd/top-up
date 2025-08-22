@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { CreditCard, Clock, ArrowRight } from "lucide-react";
 
 import { Card, CardContent } from "../components/ui/Card";
+import ServiceCard from "../components/services/ServiceCard";
 
 import { Button } from "../components/ui/button";
 import { useAuth } from "../context/AuthContext";
@@ -209,53 +210,7 @@ function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {services.map((service) => (
-              <Card
-                key={service.id}
-                className="overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-              >
-                <div className="relative h-48">
-                  <img
-                    src={service.image}
-                    alt={service.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <CardContent className="p-6">
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-lg font-semibold">{service.name_en}</h3>
-                    <span className="text-lg font-bold">${service.price}</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
-                      {service.category.name_en}
-                    </span>
-                    {user ? (
-                      service.subscription ? (
-                        <Button
-                          size="sm"
-                          onClick={() => navigate(`/streams/${service.id}`)}
-                        >
-                          <Clock className="h-4 w-4 mr-2" />
-                          Subscribe Now
-                        </Button>
-                      ) : (
-                        <Button
-                          size="sm"
-                          onClick={() => navigate(`/services/${service.id}`)}
-                        >
-                          <CreditCard className="h-4 w-4 mr-2" />
-                          Order Now
-                        </Button>
-                      )
-                    ) : (
-                      <Button size="sm" onClick={() => navigate(`/login`)}>
-                        <CreditCard className="h-4 w-4 mr-2" />
-                        Order Now
-                      </Button>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
+              <ServiceCard key={service.id} service={service} />
             ))}
           </div>
 

@@ -14,7 +14,7 @@ import { getAllCat } from "../../../lib/categoryApi.js";
 export default function UpdateServiceForm({ service, onSuccess, onCancel }) {
   // هنا نهيئ الحالة بقيم 'product' عند فتح المكوّن
   const [formData, setFormData] = useState({
-    name: service?.name_ar || "",
+    name: service?.name_en || "",
     price: service?.price || 0,
     imageFile: null,
     description: service?.description || "",
@@ -102,7 +102,7 @@ export default function UpdateServiceForm({ service, onSuccess, onCancel }) {
     setIsLoading(true);
     try {
       const payload = new FormData();
-      payload.append("name_ar", formData.name);
+      payload.append("name_en", formData.name);
       payload.append("price", formData.price);
       payload.append("description", formData.description);
       payload.append("price_wholesale", formData.price_wholesale);

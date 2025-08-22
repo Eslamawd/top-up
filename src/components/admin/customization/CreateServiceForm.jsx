@@ -101,7 +101,7 @@ export default function CreateProductForm({ onSuccess, onCancel }) {
     setIsLoading(true);
     try {
       const payload = new FormData();
-      payload.append("name_ar", formData.name);
+      payload.append("name_en", formData.name);
       payload.append("description", formData.description);
       payload.append("price", formData.price.toString());
       payload.append("price_wholesale", formData.price_wholesale.toString());
